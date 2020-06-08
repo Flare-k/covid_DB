@@ -1,0 +1,235 @@
+[ 0413 운체 ]
+1장:운영체제의 전반적인 내용
+2장:운영체제가 제공하는 서비스
+   운영체제라는 sw가 어떤 서비스를 제공하는지
+
+* 운영체제가 뭘까?라는 질문을 하기 전에
+운영체제가 없으면 어떻게 될까?
+운영체제 없이 하드웨어를 쓰기 힘듦
+운영체제는 하드웨어와 사용자 사이에 있는 sw
+운영체제라는 sw가 hw의 자원을 관리함
+운영체제는 system sw
+
+* 운영체제의 목표 // pg1 
+1) 사용자 프로그램을 구동하고
+사용자들이 가진 문제를 손쉽게 해결
+
+그렇게 하려면 OS는
+자원(CPU, 메모리, IO device)을
+잘 관리하고 제어해야 함
+
+2) OS는 사용자가 손쉽게 사용할 수 있는 환경 제공
+(컴퓨터 시스템을 사용하기 편하게)
+
+운영체제가 하드웨어를 관리, 컨트롤하기 위해서는 알고리즘 필요
+운영체제는 자원을 관리, 자원을 제어하고,
+사람과 하드웨어 사이에 놓여있어서 사용자들에게 편하고 효과적인 작업환경 제공
+
+1장에는 주로 운영체제와 하드웨어가 어떻게 관련이 있는지를 배움
+따라서 하드웨어를 알아야 함
+운영체제는 시스템 소프트웨어이기 때문에 프로그래밍, 자료구조에 대한 지식이 요구됨
+
+// 그림설명 : 노트에 필기
+
+결론 : 운영체제가 뭐하지?
+1) 사용자의 명령을 수행
+   사용자가 원하는 서비스를 OS가 hw를 작동시켜서 그 서비스를 사용자에게 제공함
+2) hw 자원을 관리함 (manage resources) -> 사용자에게 서비스를 잘 할 수 있도록 OS가 hw를 관리함
+3) OS를 크게보면 (unix에서)
+	- file을 다루는 file system
+		- file을 열고 쓸수도 있지만
+		- 디렉터리를 열고 쓸 수도 있음
+	- process를 다루는 process subsystem
+		- process간의 동기화
+		- memory 관리
+		- interprocess 관리
+
+즉, 운영체제는 hw바깥에서 사용자들이 원하는 명령어를 system call을 호출하고,
+system call은 hw를 구동시킴
+
+이때 system call은 user와 os를 왔다갔다하는 전령자역할을 함
+system call이 종류가 여러가지가 있음
+	- process를 다루는 system call
+	- file을 다루는 system call
+	- memory를 다루는 system call
+system call을 잘 이해하면 어떻게 운영체제가 구동되는지 알 수 있음
+
+강조 : "os를 알기 위해서는"
+- hw의 구조를 잘 알아야 함
+- os가 어떻게 사용자와 interaction하는지 알아야 함
+- os가 어떻게 hw 자원을 관리하는지 알아야 함
+
+3pg) OS의 목적
+- 자원할당
+- 프로그램 관리
+- 커널 : 시스템이 구동될 동안에는 항상 켜져있어야 함
+
+4pg) 강조함
+1) abstraction
+- 핵심적인 컨셉, 로직을 상위개념으로 보여주는 것
+- 언제 필요? : 밑에 복잡한 것을 숨길 때
+  ex) 삼성꺼를 썼는지, IBM꺼를 썼는지 don't care -> 그냥 하드디스크로 추상화
+- 즉, OS가 복잡한 하드웨어를 추상화시켰다!
+- 다양하고 복잡한 하드웨어, 회사마다 다르지만, 
+  그것을 추상화시켜서 사용자의 입장에서는 개념적(logical)하게 볼 수 있음
+- 하드웨어의 복잡성을 숨기는 것이 추상화
+
+2) sharing : OS가 자원을 관리할 때 시간과 공간을 공유
+- time multiplexing 
+	- 옛날 컴퓨터 자원 비쌈
+	- 컴퓨터를 혼자서 쓰는 것처럼 하고 싶음
+	- time을 공유
+	- 100명이 접속했지만,
+	  각각의 100명은 혼자서 컴퓨터를 쓰는 것처럼,
+	  round robin(CPU scheduling중 하나)을 통해서
+	  일정한 time quantum을 주고(ex:1초)
+	  1번 사람에게 1초 할당, 2번사람에게 1초 할당 ,,,
+	  -> 100번까지 돌았다가 -> 다시 1번은 1초 할당
+	- 이게 1초가 아니라 ms단위로 내려가면 간격을 사람들이 느끼지 못함
+	  그래서 100ms간격으로 차례가 돌아오는건데도
+	  자기가 컴퓨터를 독점한다고 착각하게 할 수 있음
+	- 자기의 시간이 돌아올 때마다 자기의 업무를 수행
+
+- space multiplexing // 25분 ???
+	- 메모리의 특정 분야를 어떤 process혼자서만 쓰게 하는 것이 아니라
+	  그 작업이 있는 메모리영역을 다른 process들도 쓸 수 있게 os가 관리해줌
+	- jobA가 다 끝나면 -> os허락받고 ->  jobB가 그 영역에 와서 작업할 수 있음
+	- 대신 jobA 수행중에는 다른 job이 그 영역을 침범할 수 없음
+
+- 즉, 한정된 자원(공간적 자원, 시간적 자원)을 관리 => sharing => 성능높임
+
+3) protection
+- protection을 하는 이유
+  : 허가받지 않은 사용자가 특정한 작업이 수행되는 공간에 들어오면 안되기 때문
+- protection은 시스템 내에서 허가받지 않은(authorized가 안된)사용자가 못 들어오게 막음
+- 종류
+	- 메모리 protection : user1이 작업하는 영역에 user2가 침범하지 못하게
+	- cpu protection : (ex) 코드를 잘못짜서 무한루프 돎
+			    -> timer가 눈치를 채고 stop시킴
+- cf) 외부에서 막는 건 security
+      내부에서 막는 건 protection
+
+4) fairness
+- scehduler가 어떤 자원만 계속 쓰면 안됨
+- 공평하게 스케쥴링하자(골고루)
+
+5) performance
+OS는 항상 성능을 높일 수 있게 해야 함
+
+5pg)
+- 큰 그림
+: hw -> os -> utility(ex. compiler, interpreter) -> middleware -> user
+
+- middleware(강조)
+	- user app과 os"사이에" 있어서 "middle"ware
+	- middleware를 그냥 JVM이라고 생각하래
+	- jvm이 있으면 밑의 계층인 hw나 os가 제각기 달라도
+	  app은 hw랑 os 종류 상관없이 작업할 수 있음
+	  (ex) 안드로이드와 ios는 호환 안됨
+	       만약 안드로이드가 구동되는 기기 위에 middleware를 깔고
+	       ios가 구동되는 기기 위에 middleware를 깔면
+	       user들이 서로 connection되어 작업할 수 있음
+	- 밑에 hw, os가 다르더라도 middleware 덕분에 사용자는 구애받지 않음
+	- middleware는 상호호환성을 제공함, 투명성이 있음
+	- middleware의 문제점 (중요할 듯, 모르는 사람이 많대)
+	  : middleware가 깔리면 계층이 하나 더 생기기 때문에 성능에 저하 생길 수 있음
+
+7pg)
+- DMA, Interrupt : 어떻게 io작업이 cpu와 communication하느냐 // 중요
+
+- instruction cycle (어떻게 컴퓨터가 구동되는지)
+	// DMA설명하기전에 추가설명 해주심
+	// 노트에 필기함 (그림있음)
+	1) fetch
+		- IS(instruction set)를 main memory에서 가져옴
+		- 이때, PC(program counter)라는 register에
+		  cpu가 가지고 올 IS가 있는 주소값을 저장함
+		  (cf) register : cpu내의 저장공간
+		- IS를 ALU(arithmetic logic unit, 산술연산장치)에 보냄
+	2) decode : ALU로 가져온 IS의 정보를 얻기 위해서 opc오후 1:43 2020-04-28ode를 해석함
+	3) operation
+		(ex) IS의 opcode를 decode했더니 ADD명령어 였음.
+		     이제 주어진 값을 더해야 함. 즉, 명령어 수행
+		     ALU가 activate됨
+	4) store : ALU가 계산한 결과를 저장함
+
+- DMA(Direct Memory Access)
+	- cpu가 instruction을 가져올 때마다
+	  첫번째 instruction, 두번째 intstruction을 다 cpu가 알려줘야 함
+	- cpu cycle은 전기적속도(electronic speed)지만,
+	  io는 기계적속도이므로 synchronized가 안 맞음
+	- io작업하는데 cpu cycle을 낭비할 수 없음
+	- 즉, io작업을 cpu가 관여하는 게 아님 -> DMA가 cpu cycle대신 작업해주고
+	  -> 작업이 다 끝나면 interrupt를 걸어서 cpu에게 알려줌
+	- 장점 : storage로 file이나 data를 이동할 때
+		cpu cycle을 낭비하지 않을 수 있음
+
+9pg)
+- pipelining // 노트에 필기 (그림)
+ : 다른 process간에 겹치지 않는 instruction set의 machine cycle을 베치함
+  -> 성능이 향상됨
+
+cf) process vs processor
+- process : programming execution
+- processor : 그냥 cpu라고 생각하셈
+
+17pg) caching // 중요
+- memory와 cpu사이에 cache존재함
+- 자주 호출되는 data는 cache에 두자
+- cache에 접근하는 속도가 memory에 접근하는 속도보다 빠름
+- cache에 없는 건 memory로 가서 찾는다
+- 문제점 : cache와 memory사이의 consistency(일관성)
+	- write-through : cache 업데이트하면 memory도 업데이트함 -> 성능↓
+	- write-back : cache의 작업이 끝나서 cache내용을 지울 때만 memory를 업데이트
+
+21pg) interrupt // 중요 // 노트에 필기(그림)
+- 결론 : interrupt 걸릴 때 마다 interrupt당한 process의 내용과 돌아올 주소를
+	stack에 저장하고, stack은 LIFO(last in first out)이므로
+	다시 돌아갈 때마다 pop하면서 돌아갈 주소를 찾아감
+
+1) device가 interrupt를 걸었어 (ex 프린터가 interrupt를 걸었어)
+2) cpu가 현재작업인 p1을 중지하고 kernel mode로 바뀜
+   왜 kernel mode로 바뀔까? interrupt를 수행하기 위해서
+   현재 pc(program counter)을 저장함. 즉, p1의 주소인 100와 p1의 정보들을 저장함
+3) cpu fetches proper vector = 어느 process가 interrupt했는지 vector table확인
+   branches = interrupt건 p2로 이동
+4) interrupt건 p2의 작업을 수행함(performs action required by interrupt)
+5) handler complete operation = p2작업 마침
+   restore saved and returns to user mode = p1의 pc를 pop하고 다시 p1수행
+
+- interrupt가 왜 중요할까?
+ : interrupt가 없으면 cpu가 device의 상태를 계속 모니터링 해야(polling)하므로
+  -> cpu cycle을 낭비하게 됨
+
+// 다음시간 : system call이 어떻게 작동하는지 자세히 설명해주실거래
+
+40pg)
+1) mainframe system : bach로 작업하는 것
+2) multiprogramming system
+	- memory에 2개 이상의 job들이 있고, cpu를 항상 바쁘게 해줌
+	- multiprogramming system이 도입되면서 os 개념이 등장함
+3) time-sharing system : RR(round-robin)기법을 사용해서 시간을 중복해서 사용하는 것처럼
+4) desktop system : 우리가 그냥 쓰는 거~
+5) parallel system
+	- 슈퍼컴퓨터라고 보면 됨 (기상청, 국세청에서 씀)
+	- cpu가 여러개 있는 것
+	- clock을 processor(=cpu)들이 공유함
+	- clock은 하나이고 memory를 공유함
+6) distributed system(분산시스템)
+	- 서울, 뉴욕, 런던,, 떨어져있어서 clock을 공유할 수 없음
+	- clock은 각각, memory도 각각
+7) clustered system
+	- file system을 묶어놓은 것
+8) real-time system(실시간시스템) : ex) 요격미사일
+	(1) job이 마감시간내에 끝나야 함(deadline) 
+	(2) 예측가능해야 함
+9) embedded system : ex) 자동차
+	- 컴퓨터(cpu) 내장 -> 컴퓨터가 전체 시스템 관리
+10) handheld system : ex) 노트북, 핸드폰
+	- 가지고 다녀야하므로 자원이 제약, os size도 작아야 함
+
+64pg) 3rd generation
+- 3rd generation에서는 multiprogrammed system개념이 도입되면서
+  -> 메모리에 job이 동시에 하다보니
+  -> cpu scheduling, memory관리, protection 필요
+  -> os개념이 도입됨

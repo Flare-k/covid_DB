@@ -1,0 +1,55 @@
+* 복습
+- thread라는 개념이 왜 나왔는지
+	- 프로그램을 만들 때 실행path가 한개로는 부족함
+	- thread라는 개념이 없었을 때에는 process를 여러개 둠
+	- 실행path를 하나 더 만들기 위해서 process를 하나 더 만드는 건 OS입장에서 오버헤드가 큼
+	- 따라서, 실행path가 하나 더 필요하면 process는 그냥 두고 thread를 하나 더 만들자
+- 이름이 왜 thread? -> 실행path를 그림으로 그려보니까 실처럼 생겨서(thread 뜻이 '실')
+
+- 여러분들이 지금까지 만든 program은 main함수부터 실행하는 thread지? -> main부터 실행하는 thread와 function1을 수행하는 thread, function2를 수행하는 thread를 동시에 수행시켜보자 -> 실행path여러개
+	- function1을 수행하는 thread는 cin을 처리하고
+	- function2를 수행하는 thread는 network로부터 패킷을 처리함
+-> 동시에 여러개를 처리할 수 있음 -> 이 개념이 thread임!! 
+
+9pg)
+- socket이라는 전역변수도 있고,  echo stream(??맞나? 4분 40초)이라는 file이라는 객체도 있고, buffer라고 하는 전역변수가 있어
+- 이 전역변수는 하나의 file을 뭐라구요 교수님? // 4분 56초
+- 이 function에서 전역변수로 access할 수 있어?없어? -> 있어 -> 전역변수들을 공유할 수 있음 -> thread들이 open되어있는 file들을 공유할 수 있음, data도 공유할 수 있음, socket으로하는 TCP connection도 공유할 수 있음
+
+- 지난시간에 web server예제를 들면서, tcp connection이 맺어지기를 기다리다가 -> tcp connection을 전담해서 처리할 child process를 하나 생성하고 -> 자기자신은 새로운 tcp connection을 기다림
+	- 장점 : A를 다 처리하고 -> B를 처리하는 것보다 속도가 빠름
+	- 단점 : 오버헤드가 큼
+	- 해결책 : child process대신에 thread를 하나 더 만들자
+
+12pg)
+- OS에서 thread를 구현하는 방법
+- OS가 thread를 구현할 때 kernel에 구현하는게 쉬울까 vs User의 application program에 library형태로 구현하는게 쉬울까?
+=> 당연히 app! => debuging하기도 쉽고, 개발하기도 쉽고,,
+- app에서 library형태로 구현한 thread를 user thread라고 함 -> 하나의 process안에 여러개의 thread가 될 수 있게 하고 -> 여러개의 thread들을 돌아가면서 수행할 수 있게 하는 기능을 library형태로 구현
+- kernel은 thread의 존재를 모름
+- 위의 얘기는 옛날
+- 지금의 OS는 thread는 kernel에서 지원을 함 //,,,?app에서 구현하는게 더 쉽다면서요
+- 이제는 kernel : process management랑 thread management 둘다 함
+- User에서 하면 단점 : Kernel에서 하는 것보다 제약조건이 있음
+- 대신 User에서 하면 장점 : Kernel에서 하는 것보다 overhead가 적음
+- User에서 하면 가장 큰 단점 : 12pg에 자세하기 필기함
+
+19pg)
+- thread라는 개념은 UNIX가 처음 만들어졌을 때 생겨난 개념 아님
+- 나중에 나온 개념임 -> 원래 UNIX가 가지고 있던 principle 또는 concept중 이상해진 것이 있어
+	- fork()와 exec()를 했을 때 thread를 어떻게 하느냐?!
+		- 한 process가 수행되고 있는데, thread를 5개를 만들었어 -> 그 중에 하나의 thread가 fork()를 했어 -> 그럼 그 thread만 fork()를 해서 thread가 총 6개가 되어야 해? 아님 thread가 fork()를 했지만 결국 process가 fork()를 한거니까 5*2=10개의 thread가 되어야 해? -> 표준이 없어서 애매하다 -> 그래서 thread가 여러개 일 때는 fork()를 안 하도록 programming하는 게 일반적임
+	- thread를 cancellation, 즉 thread를 종료시킬 때 issue가 있음
+	- signal이라는 mechanism이 있는데, signal은 UNIX에서 asynchronous하게 event를 전달하는 방법 // signal을 배우지 않아서 자세히 설명하는 건 pass하심
+
+20pg)
+- thread를 하나 생성하기 위해서는 system call을 해야하는데 -> system call에 대한 UNIX의 표준은 POSIX(Portable UNIX Operating System)인데, POSIX에서 thread라는 새로운 개념이 나왔으니까, thread에 관련된 system call을 만듦 = Pthread(POSIX thread)
+- 표준이기 때문에 UNIX계열에서는 전부다 지원함
+
+32pg)
+- 해당 페이지에 대한 설명은 아니고 대충 summary인듯
+- MS DOS시절에는 실행시킬 수 있는 process가 한 개 밖에 없었고, 그래서 그 안에서 수행되는 thread도 당연히 하나였음
+- 옛날에 UNIX들은 thread라는 개념이 없어서 process하나에 thread하나씩 수행됨
+- 이제 thread라는 개념이 나오면서, user thread, kernel thread가 도입이 되면서 process하나에는 thread가 하나 또는 여러개 있을 수 있게 됨
+- JAVA는 JVM이 하나의 process가 되어서 JAVA를 수행시키기 때문에 process는 하나밖에 없는거임. 
+- 하지만 windows나 LINUX에서는 JVM이 여러개가 수행될 수 있음. 하지만 JVM하나 안에서는 process는 하나밖에 안 도는 거구, thread는 여러개인 model임. 만약 하나의 LINUX 위에 JVM 3개가 수행이 되면 그 안에 돌아가는 JAVA program들끼리 통신을 하기 위해서는 JVM끼리 network을 이용해서 통신해야 함.

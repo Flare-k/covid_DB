@@ -1,0 +1,5 @@
+39pg)
+- simulation은 computer program안에서 대충 구현하는 것
+- emulation은 hw의 동작을 sw로 똑같이 구현하는 것
+
+// 16분 48초

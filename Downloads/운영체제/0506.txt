@@ -1,0 +1,97 @@
+[ 0506운체 ]
+// 복습
+// 오늘 수업
+turn = my turn = 내 차례 = 내가 critical section에 들어갈거야
+
+while DO skip = 아니면 계속 돌아라 = busy waiting
+
+IF) turn = i인데 j가 들어가길 원한다
+flase -> ~빠져나와서 -> critical section에 진입?
+
+못들어가게 하는 이유는
+flase니까
+Pi가 while문을 빠져나와서
+Pi가 citrical section을 수행할 때
+Pj는 이때 turn값은 안 바뀜
+얘는 여기서 계속 빙글빙글 돌아
+Pi가 critical section에 있으니까
+Pj는 계속 busy waiting을 해야함
+rremind section은 자기자신의 local 영역
+turn 은 Pi와 Pj가 공유하는 변수
+내가 나를 부정하는 건 false -> while loop안으로 들어오게 됨 -> critical section으로 들어옴
+i는 j가 아니니까 loop를 돌아 언제까지? -> 놓침
+
+결론 : algorithm1은 틀렸다
+문제점 : 교대 교대 교대로 하면 상관없지만 하나가 완료하고 나머지가 게속하게 되면 문제가 생김
+
+<algoritm2>
+초기값은 모두 false
+true로 바꿔서 critical section에 들어옴
+flag[i]는 true로 바꾸고 flag[j]는 아직 false
+//놓침
+
+// algorithm4,,??벌써요?? ㅋㅋㅋㅋㅋㅋㅋㅋ
+algorithm4에서 correction을 쓰기 위해서 turn과 flag를 쓴거임
+turn 값을 i로 바꿈
+변수의 값은 어떻게 될까요?
+flag의 값은 전부 true이고 turn은 i임
+그상태에서 flag[j]는 true잖아
+and trun = j
+의 조건이 틀렸으니까 (지금 i이므로)
+false이므로 critical section으로 떨어지고
+오른쪽으로 이동해서
+// 놓침
+turn이 만약 j이면 왼쪽은 true지만 오른쪽은 false로 바꿔줌
+즉, 오른쪽 왼쪽 둘다 true였어도 무조건 하나만 true로 바꿔주고 하나는 false로 바꿔줘서,, 놓침
+결국 flag를 썼다는 것은 algorithm1에서의 문제점을 해결해주는? 이해X
+
+// 동기화 -> 모니터까지 진도끝나면
+1,2,3,4조진성 교수님 -> 이승룡교수님 수업~동기화내용 summerize하기(직접)
+unix code,,, 등등,,,??? 놓침
+// 리포트로 중간고사 대체
+// 기말고사에서도 보충자료 코드 이런 거 물어볼 수 있음 (코드살짝 바꾸고 맞느냐 틀리냐 -> 상호배제 ㄱㄴ? -> 맞으면 왜? 틀리면 왜? 이유 설명까지 -> progress에 위배됐네,,,등등 -> 정확하게 이유를 쓰기 위해서는 제대로 이해해야함)
+
+// Dekker's algorithm
+progress개수가 여러개일 때
+근데 안 다룸!!!!!!!!!오예
+
+hardware solution은 쉽게 말해서 펌웨어로 구현한거임
+하드웨어가 펌웨어를 구현(구동)한거임
+application의 상위레벨 언어로 짠 게 아니라 assembly언어로 짜고 hardware에 embedding시켜서 펌웨어로 구동
+
+코드에서 (보조자료 Lec4-8pg)
+definition을 보면
+Test-and-Set은 funcion이고 이 함수의 parameter은 lock임
+함수 초기값은 false를 가짐 (function의 return값은 false)
+
+핵심은 lock은 공유변수
+lock은 누군가에게 선택받는 순간
+lock의 초기값이었던 false값이 true로 바뀜
+그 바뀌는 순간에는 아무도 접근할 수 없게함
+그리고 lock이 누군가에게 선택받으면 나머지는 WHILE loop을 계속 빙글빙글 돎
+
+// 강의보조자료 Lec05
+세마포어
+세마포어는 변수라고 생각하면 됨
+var) int : x
+        real : y
+        char : c
+        string : st
+        semaphore : s
+
+malloc(memory allocation)
+x라는 영역에 int로 값이 들어가라~
+
+semaphore의 의미
+// 여기서 m은 semaphore변수
+// p와 v는 pair임
+
+p(m) // wait : 어떤 조건이 만족할 때까지 기다려라
+- while m <= 0 DO skip
+            m:=m-1
+  // no interrupt is allowed (authomic cycle : 한 번 수행하면 여기까지 수행됨)
+
+v(m) // signal : 풀어준다는 거임
+- p0, p1,,,, pm
+- critical section을 공유함
+- ㅋㅋㅋㅋㅋㅋㅋㅋㅋ뭐라는걸까요ㅠㅠ

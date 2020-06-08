@@ -1,0 +1,576 @@
+Manifest-Version: 1.0
+Created-By: 1.0 (Android)
+
+Name: res/drawable-mdpi-v4/ntv_copy.png
+SHA1-Digest: tsTNv93STt+FdN7spIkj/ifjMyY=
+
+Name: res/drawable/ntv_selector_copy.xml
+SHA1-Digest: HMZk3OvfSESc2msF5CeWloH2O+o=
+
+Name: res/drawable-mdpi-v4/ntv_yellow_touch.png
+SHA1-Digest: 8nfC/HApIyBPqw4snH8nQ+lBbaU=
+
+Name: res/drawable/selector_view.xml
+SHA1-Digest: tM3IuG6GQTaR5hIqdVDGcO9okgM=
+
+Name: res/drawable-mdpi-v4/ntv_search_bar2.png
+SHA1-Digest: z1cUhxWzSGzR1sSsg5mra0fpGTM=
+
+Name: res/drawable-mdpi-v4/ntv_media_fullscreen_default.png
+SHA1-Digest: XyLrw/vBWofgCgoDnlq56PoeogU=
+
+Name: res/drawable/ntv_selector_highlight_orange.xml
+SHA1-Digest: OQPZaXGTrVCP37UFzyqPcB06h3A=
+
+Name: res/layout/target_item.xml
+SHA1-Digest: /Tyh0Ve7asJssb+8UtCNLlIz5kY=
+
+Name: res/drawable-hdpi-v4/play_button_touch.png
+SHA1-Digest: Zg6xaCfhCyjG/R1zihof5qWnKeg=
+
+Name: res/drawable-mdpi-v4/ntv_list_move_bt.png
+SHA1-Digest: bckot7QO59qLUffiIwKcjQr8hak=
+
+Name: res/drawable-mdpi-v4/ntv_memolist_bt.png
+SHA1-Digest: Frl8XUfjJE9NvNiFYLTafHgU3G0=
+
+Name: res/drawable-mdpi-v4/ntv_top.png
+SHA1-Digest: BTE4QINe6oQxNdobds87sDiNJXA=
+
+Name: res/drawable/ntv_selector_listview_move.xml
+SHA1-Digest: jM/Fc5X1WKfr5C1hFomueg1EMUw=
+
+Name: lib/armeabi/libgnustl_shared.so
+SHA1-Digest: GwNztcl8vg6zaGFK5sjEyxHJf4I=
+
+Name: res/drawable-mdpi-v4/ntv_copy_touch.png
+SHA1-Digest: j675/7YPkI0O4KT7LZsGMrnTOqg=
+
+Name: res/drawable-mdpi-v4/ntv_list_close_bt_touch.png
+SHA1-Digest: C27DW1Boyo4N6bEPLVYqAw9mhjk=
+
+Name: res/drawable-mdpi-v4/ntv_list_close_bt.png
+SHA1-Digest: ukcPiDn8qthMDsVQcRpxvr5VDe8=
+
+Name: res/drawable-mdpi-v4/ntv_memo_touch.png
+SHA1-Digest: Xw+RHmw45+7Eoczq8ykex4HWHj4=
+
+Name: res/drawable-xhdpi-v4/ntv_media_fullscreen_default.png
+SHA1-Digest: hPxUaEvVBif44tgyPLwjHeYUyBU=
+
+Name: res/drawable-xhdpi-v4/ntv_media_pause_touch.png
+SHA1-Digest: rhwRjVO03cOG0o84uFOJFvG2Xew=
+
+Name: res/drawable-mdpi-v4/ntv_media_pause_default.png
+SHA1-Digest: ScQf9Ea1afgy5exHRgL1f820MTo=
+
+Name: res/drawable-mdpi-v4/ntv_save_touch.png
+SHA1-Digest: 4p3Z+WzdK/s+zWLw3bMcz+J0UDI=
+
+Name: res/drawable-hdpi-v4/ntv_media_region_default.png
+SHA1-Digest: AKY7fZlWf7TtfGC0CEpo1L5UhnY=
+
+Name: res/drawable-mdpi-v4/ntv_arrow.png
+SHA1-Digest: 0PIoHK4Uav09lyP5HQCgogCLqsU=
+
+Name: lib/armeabi/libntv_curl.so
+SHA1-Digest: 3Y9G69okMHll8vkwIW2FBZL7RCY=
+
+Name: res/drawable/ntv_selector_listview_delete.xml
+SHA1-Digest: qaC6glKSuRUGu6n1JTc7YxRTWfE=
+
+Name: res/layout/server_list_row.xml
+SHA1-Digest: ccMnkRfpuveeUcSEDiFuQ3PmtTE=
+
+Name: res/drawable/ntv_selector_google.xml
+SHA1-Digest: +ReiwCaJsZg9vsle1O9NyZhqBp0=
+
+Name: res/drawable-mdpi-v4/ntv_memo.png
+SHA1-Digest: 1+5vNyda6EQTqm29OV1Sd80Kn9k=
+
+Name: res/drawable-mdpi-v4/ntv_search_bt_touch.png
+SHA1-Digest: HWEHnJ89q46HVck0CNaB0miDZNk=
+
+Name: res/drawable/ntv_selector_media_fullscreen.xml
+SHA1-Digest: 13J3bhf8FyE5hbkcc+TgXiblbwo=
+
+Name: res/drawable-xxhdpi-v4/ntv_media_pause_touch.png
+SHA1-Digest: 9OjKGtSCKKwFGe3x5diMCaPHa8E=
+
+Name: res/drawable-mdpi-v4/ntv_delete_sub_touch.png
+SHA1-Digest: ZwAOL+9pSDAIaUZa61WscpbzB14=
+
+Name: res/menu/menu_home.xml
+SHA1-Digest: wOQQQw78NTqY0sq/3mkUnkQh7Do=
+
+Name: resources.arsc
+SHA1-Digest: gTNxs3Jpdvq2t7pZWxd92BSjQIs=
+
+Name: res/menu/menu.xml
+SHA1-Digest: 7ZPCUGsbmfiOncZ+W8XngA9abMI=
+
+Name: res/drawable-xhdpi-v4/ntv_media_region_touch.png
+SHA1-Digest: 2fJ8AxPNxm32Jm0lggIATAgubGs=
+
+Name: res/drawable/selector_cancel.xml
+SHA1-Digest: 2DWgCEJ0+PVzpvJFsbuVl+K75Rs=
+
+Name: res/drawable-mdpi-v4/ntv_green.png
+SHA1-Digest: mqdnBJzWuVgAGy2+hl1Shlv7wKM=
+
+Name: AndroidManifest.xml
+SHA1-Digest: SlSai4tZBxb/743QGVAGVxlgDrI=
+
+Name: res/drawable-mdpi-v4/ntv_media_region_touch.png
+SHA1-Digest: gpIBjMcWYS1/mDvarueUm2IDnXE=
+
+Name: res/drawable-xhdpi-v4/ntv_media_region_default.png
+SHA1-Digest: PTjxev/FvcxuwJ33qeN45l2vG24=
+
+Name: res/drawable-hdpi-v4/ntv_media_fullscreen_default.png
+SHA1-Digest: HTWMQ+88Kjaczrx1+pIssj9+Jcg=
+
+Name: res/drawable-mdpi-v4/ntv_list_search_bt.png
+SHA1-Digest: oDNxJXq8x4MZayy+Gfc8LhxEzS4=
+
+Name: res/layout/ntv_main.xml
+SHA1-Digest: TYv0Gq75Vff6nqSTaAI5BuPbrGw=
+
+Name: res/drawable/ntv_selector_media_region.xml
+SHA1-Digest: 91iTSjBv8iMvVxz4fN7mOMufBXo=
+
+Name: res/drawable/ntv_selector_delete_sub.xml
+SHA1-Digest: CqJXA8eukMhYweZg6YEjhkvxlWE=
+
+Name: res/layout/local_contents_list_row.xml
+SHA1-Digest: LTf9kXkXP0IeIBs626xl0Wi4Z6s=
+
+Name: res/drawable-mdpi-v4/ntv_list_search_bt_touch.png
+SHA1-Digest: hRnQS2jaCCRsulLFomSMunelwr4=
+
+Name: res/drawable/ntv_selector_highlight_red.xml
+SHA1-Digest: yR7qoZNiic9q/gbW7T1yXy6TJb8=
+
+Name: res/drawable-mdpi-v4/ntv_list_delete_bt_touch.png
+SHA1-Digest: 4rIX0Dem2Iv9oOmtmzjTUi/Eb4Q=
+
+Name: res/drawable-mdpi-v4/ntv_yellow.png
+SHA1-Digest: BC0h03oIwcqvM5yJeXWjU+qCAM4=
+
+Name: res/drawable-hdpi-v4/top_bar.png
+SHA1-Digest: NERA2MPJHm2c1UXJ/kP4jwHJB6c=
+
+Name: res/drawable-mdpi-v4/ntv_close_touch.png
+SHA1-Digest: RwbNR2LXDZqtufF8YTjejPrXTIQ=
+
+Name: res/drawable/ntv_selector_dialogmemo_save.xml
+SHA1-Digest: ozLHyKoqx/XquFKGqEZMc85Qi10=
+
+Name: res/drawable-mdpi-v4/ntv_edittext_background.png
+SHA1-Digest: TRmV1FgOwKTP4+y+F3/TEpARY3s=
+
+Name: res/drawable-mdpi-v4/ntv_arrow_touch.png
+SHA1-Digest: GUShO8Nn/59LSQ4yDhJd3yjkx10=
+
+Name: res/layout/ntv_listview_row.xml
+SHA1-Digest: aVlw2yZ3E3MjNtC4VcYvw0OAh2A=
+
+Name: res/drawable-mdpi-v4/ntv_edittext_background_hor.png
+SHA1-Digest: hyYxq55yBDXPsxbfRBseGspqD8A=
+
+Name: res/drawable-mdpi-v4/ntv_google_touch.png
+SHA1-Digest: R9Fk34ga0IPTYFVYbR5clzoyrLc=
+
+Name: lib/armeabi/libntv_core_external.so
+SHA1-Digest: FSdS78nMj5m/eFQWUd7TVWOC040=
+
+Name: res/drawable-mdpi-v4/ntv_search.png
+SHA1-Digest: rWE53JHiXVV/iEbPlHQrOPQAa1Y=
+
+Name: res/drawable-hdpi-v4/ntv_media_region_touch.png
+SHA1-Digest: On+A0MpP/TDNNM3/s+WNdKVOqIY=
+
+Name: res/drawable/ntv_selector_media_play.xml
+SHA1-Digest: e7VC4zB3UqgqxRXrJDKsyEFVydc=
+
+Name: res/drawable-xxhdpi-v4/ntv_media_pause_default.png
+SHA1-Digest: ctPnNtxbtgPkvSlCrSwK/E28pCo=
+
+Name: res/drawable-mdpi-v4/ntv_newmemo_touch.png
+SHA1-Digest: 8X/aOEkDX1rhmuQdPNVKO5xJas8=
+
+Name: res/drawable-hdpi-v4/pause_button_touch.png
+SHA1-Digest: 9yxNeb+XdrpPC3A+DK+5n6FZ2Eg=
+
+Name: res/drawable/ntv_selector_highlight.xml
+SHA1-Digest: ybfDAB7MGYevBm14W1PbVDnlty8=
+
+Name: res/layout/progress_dlg.xml
+SHA1-Digest: jqpF2tSHVR7sM9BOhbkTZcX+VQw=
+
+Name: res/drawable-mdpi-v4/ntv_next_bt.png
+SHA1-Digest: I1NVV+AYnbqvmthXtagYXBgaJ5c=
+
+Name: res/drawable-xhdpi-v4/ntv_media_back_default.png
+SHA1-Digest: GiGOD2cublQN8VCxZw31Fn2HRek=
+
+Name: res/drawable-xhdpi-v4/ntv_media_pause_default.png
+SHA1-Digest: 6u4RaSiocw0HOPAJCRyCU9g3KJc=
+
+Name: res/drawable/ntv_selector_search.xml
+SHA1-Digest: l+8xQEzH7+uiz4Ww0iQ6VJMhdMs=
+
+Name: res/drawable/selector_delete.xml
+SHA1-Digest: 5Klna3KYy7Auu/Jx6xdvHD2VNhw=
+
+Name: res/drawable-mdpi-v4/ntv_red_touch.png
+SHA1-Digest: HHeonfPt6eujnWqKPeTjU8fEjOg=
+
+Name: res/drawable/ntv_selector_dialogmemo_close.xml
+SHA1-Digest: 9CMpxZbKmffTeepHPCof3KVSYbE=
+
+Name: res/drawable-mdpi-v4/ntv_green_touch.png
+SHA1-Digest: np0uLhFKalKMyyDQdOuYTPWobUU=
+
+Name: res/drawable/ntv_selector_memosub_newmemo.xml
+SHA1-Digest: 1rrHkjN17W7g42yCv7xVG3+g91E=
+
+Name: res/drawable-mdpi-v4/ntv_next_bt_touch.png
+SHA1-Digest: ou6R4m11qc+H3UKGV87ZN0VPaSE=
+
+Name: res/layout/options_dlg.xml
+SHA1-Digest: U3OOVxRfRPyAHi2ZXjUHSoXw+Ew=
+
+Name: res/drawable/ntv_selector_highlight_yellow.xml
+SHA1-Digest: dnDqGl4l1ZrnZKGBidw+Vmt210A=
+
+Name: res/drawable-mdpi-v4/ntv_media_pause_touch.png
+SHA1-Digest: fzA5XPaaPAVWmKA/uwtcaWby934=
+
+Name: res/drawable-mdpi-v4/ntv_alllistview_bg_hor.png
+SHA1-Digest: GNP60lvtokfix7rIi5sf694CraY=
+
+Name: res/drawable-mdpi-v4/ntv_orange_touch.png
+SHA1-Digest: siLFFFPKiA8KcfIz3phhvZt4kTw=
+
+Name: res/drawable-mdpi-v4/ntv_search_bt.png
+SHA1-Digest: bJZVzCStWYUPNPyu8EoIH41xVkQ=
+
+Name: res/drawable/ntv_media_progressbar.xml
+SHA1-Digest: kH9EwI2X1bp9akiLOeORt9pNHAU=
+
+Name: res/drawable-mdpi-v4/ntv_media_back_default.png
+SHA1-Digest: nybSEjOSZasECyO8CU9MpcDEz38=
+
+Name: res/drawable-xxhdpi-v4/ntv_media_play_default.png
+SHA1-Digest: pRZGpFqQ4TdjaWaYthAubZB8OC4=
+
+Name: res/anim/push_left_in.xml
+SHA1-Digest: cDiWkO3lO/uRZDgE+jSQMRQF/ic=
+
+Name: res/drawable-mdpi-v4/icon.png
+SHA1-Digest: WNkuspgC8a2eU4nGbanMD484p78=
+
+Name: res/drawable/ntv_selector_highlight_blue.xml
+SHA1-Digest: myVNwwsvMZlVdpvquK9Hk0D4LCM=
+
+Name: res/drawable-mdpi-v4/ntv_layoutover.png
+SHA1-Digest: Z0cFbAhtbOyZwZvHQCg4/Eee+Jg=
+
+Name: res/drawable-mdpi-v4/ntv_orange.png
+SHA1-Digest: oyqsc9RlhBTgnQ04qQRIe7ymAmE=
+
+Name: res/drawable/ntv_selector_memo.xml
+SHA1-Digest: fvFsCtIVCCkANTpKc2jg+dtmYAM=
+
+Name: res/drawable-mdpi-v4/ntv_google.png
+SHA1-Digest: BKeaWwGv9Oe+PoxJuqgNfzVuQRQ=
+
+Name: res/drawable-mdpi-v4/ntv_search_touch.png
+SHA1-Digest: D+ydobf98Uc5XleIwRKxXqCv0Aw=
+
+Name: res/drawable-hdpi-v4/down_button.png
+SHA1-Digest: 7RJYwvVQ4OMRfC+gnZ3Pan81Qmk=
+
+Name: res/drawable-mdpi-v4/ntv_list_delete_bt.png
+SHA1-Digest: kmvH+oVIPHsgHCI2VKP8gbC2JrU=
+
+Name: res/drawable-xxhdpi-v4/ntv_media_fullscreen_default.png
+SHA1-Digest: CZgtNfAUTpYb4xcNP2LQNFPAVoY=
+
+Name: res/drawable-mdpi-v4/ntv_blue_touch.png
+SHA1-Digest: 9arQtjBvL5+38VyWHGw4dET0bhw=
+
+Name: res/drawable-hdpi-v4/icon.png
+SHA1-Digest: hHwPia3nENTQ8PH42F3U/7Oi9dw=
+
+Name: res/drawable-mdpi-v4/ntv_arrow2_touch.png
+SHA1-Digest: /hV3rsym5xZmyNFrHwAL1Hq4O6U=
+
+Name: res/drawable-mdpi-v4/ntv_search_bar_back.png
+SHA1-Digest: Rwc76j2twI6dKVKEokiRfVYyFkg=
+
+Name: res/drawable/ntv_selector_listview_close.xml
+SHA1-Digest: Dn0czeQRCoxblkEvhs8UOsMvBIY=
+
+Name: res/drawable-mdpi-v4/ic_launcher.png
+SHA1-Digest: RRxOSvpmhVfCwiprVV/wZlaqQpw=
+
+Name: res/drawable-hdpi-v4/ntv_media_pause_touch.png
+SHA1-Digest: Bz4tDBB6Tht+TKb+tD/xMSOHLzo=
+
+Name: res/layout/contents_list_row.xml
+SHA1-Digest: ZZ5Dw1pDI1drIGM7nN/ui2xVWao=
+
+Name: res/layout/server_dlg.xml
+SHA1-Digest: 6d26Hm4rQHL72pVt9HFvkcIq4Zc=
+
+Name: res/drawable/ntv_selector_searchbar_btn_pre.xml
+SHA1-Digest: cFhztMHuIk71UOaZU82M+BIR70c=
+
+Name: lib/armeabi/libntv_gl2jni.so
+SHA1-Digest: hOC1X+8LF5s0EJhErzj9fs/jHMM=
+
+Name: res/drawable-mdpi-v4/ntv_blue.png
+SHA1-Digest: PdCpgsB0vUaFvIKiqKnaKulrDu4=
+
+Name: res/drawable-xhdpi-v4/ntv_media_back_touch.png
+SHA1-Digest: TZXuA53jZIyEO0/1Z5sckE6Ix6k=
+
+Name: res/drawable-hdpi-v4/back.png
+SHA1-Digest: +RPLxV4uMgnnrpfC1tFs3Ww3Wtg=
+
+Name: res/drawable-xhdpi-v4/ntv_media_fullscreen_touch.png
+SHA1-Digest: zXXHgfMVw8pIC48LEVh+28YkCfE=
+
+Name: res/drawable-mdpi-v4/ntv_search_bar.png
+SHA1-Digest: 4JuKw/3lAnDV1hVN2iJ68aqdz0U=
+
+Name: res/drawable-hdpi-v4/ntv_media_pause_default.png
+SHA1-Digest: lg5tb/pakV4VqXC500+1AgIH8Wc=
+
+Name: res/drawable-mdpi-v4/ntv_media_region_default.png
+SHA1-Digest: gUig9Hd5yWZm0/hyma8kFqfdvm4=
+
+Name: res/drawable-hdpi-v4/play_button.png
+SHA1-Digest: LUVfbdpbC19MdtNXZEboA1y5Y8k=
+
+Name: res/drawable-mdpi-v4/ntv_delete_sub.png
+SHA1-Digest: Tc+rD2X3u87H7Kdf7DcxwzTHsso=
+
+Name: res/drawable-hdpi-v4/delete_button.png
+SHA1-Digest: yAx2vB93AUfH8dVMV63wHyidNYo=
+
+Name: res/drawable-mdpi-v4/ntv_previous_bt_touch.png
+SHA1-Digest: s/Dz3OyY7FOBocRrgjTIo9Ievj0=
+
+Name: res/drawable-hdpi-v4/back_shadow.png
+SHA1-Digest: kA2cd0q8MO/mR5acRRvrbV5sSBk=
+
+Name: res/drawable-mdpi-v4/ntv_bar_back.png
+SHA1-Digest: XqUiKq0dsJ/UyBmMkGQYyJFFBTw=
+
+Name: res/drawable-xxhdpi-v4/ntv_media_region_default.png
+SHA1-Digest: 4Xre7DiEVbTHQ2q0SiLWMWkjxbg=
+
+Name: res/drawable-mdpi-v4/ntv_alllistview_bg.png
+SHA1-Digest: PYw7X5n3axrxJJty7pEWuSJi/YU=
+
+Name: res/drawable-xhdpi-v4/icon.png
+SHA1-Digest: uiy4y0zzsfpDjqfYDVO1nVAfNTE=
+
+Name: res/drawable-xhdpi-v4/ic_launcher.png
+SHA1-Digest: AfPh3OJoypH966MludSW6f1RHg4=
+
+Name: res/drawable-mdpi-v4/ntv_media_fullscreen_touch.png
+SHA1-Digest: XyLrw/vBWofgCgoDnlq56PoeogU=
+
+Name: res/drawable-mdpi-v4/ntv_memo_sub.png
+SHA1-Digest: 1+5vNyda6EQTqm29OV1Sd80Kn9k=
+
+Name: res/drawable-hdpi-v4/ntv_media_back_default.png
+SHA1-Digest: WA6hceorljWMnDlJ2h2dvWYjuho=
+
+Name: res/drawable-mdpi-v4/ntv_media_back_touch.png
+SHA1-Digest: KbfBY5Vf/It05gaJJ6uhuJP5fS8=
+
+Name: res/drawable-mdpi-v4/ntv_previous_bt.png
+SHA1-Digest: K8uxYJFhfcoRvJt+3KOTbwcgyqw=
+
+Name: res/drawable-xhdpi-v4/ntv_media_play_default.png
+SHA1-Digest: lC9ppIzHyuO9uMdZpO0HXuse9B0=
+
+Name: res/drawable-mdpi-v4/ntv_newmemo.png
+SHA1-Digest: /Gfqc3x3JY+xp6R8MqHBTwZSP68=
+
+Name: res/layout/ntv_dialogmemo.xml
+SHA1-Digest: AXdAcjGb1QaloYNOIV7zVGSBXRY=
+
+Name: res/drawable-mdpi-v4/ntv_highlite.png
+SHA1-Digest: Kn1bnEbuaxBsfy+Htnlf2WYQKNo=
+
+Name: res/drawable-mdpi-v4/ntv_memo_sub_touch.png
+SHA1-Digest: Xw+RHmw45+7Eoczq8ykex4HWHj4=
+
+Name: res/drawable-hdpi-v4/down_button_touch.png
+SHA1-Digest: mWAG5XgKjblrODR0gi5SdZm7jj8=
+
+Name: res/layout/ntv_media_controller.xml
+SHA1-Digest: V2j1LogCpGutfdH4a8ED42Ex6dY=
+
+Name: res/drawable-ldpi-v4/icon.png
+SHA1-Digest: Eg9Zgx1SUzJEt/ybSBAEv/Qrzno=
+
+Name: res/layout/ntv_camera_layout.xml
+SHA1-Digest: kjJQYR0TkXmPGhLkfs11gAL6Zlc=
+
+Name: res/layout/ntv_listview.xml
+SHA1-Digest: R8rATvZdj4sm5fRrA1G26Y16wB8=
+
+Name: res/layout/new_home.xml
+SHA1-Digest: 7tDytnDnxzNmBupfAhrcpsLNWuM=
+
+Name: res/drawable-xhdpi-v4/ntv_media_play_touch.png
+SHA1-Digest: BvV7wPPd0fHuMtrApIGzc4cawVw=
+
+Name: res/drawable-mdpi-v4/ntv_media_play_default.png
+SHA1-Digest: 5ARqPDBXM5hjxfEDAN5YneUunQY=
+
+Name: res/drawable-hdpi-v4/ic_launcher.png
+SHA1-Digest: Nq8q3HeTluE5JNCBpVvNy3BXtJI=
+
+Name: res/drawable-mdpi-v4/ntv_list_move_bt_touch.png
+SHA1-Digest: u+Ct9iA1q7capO4qLuIGh7Sryw4=
+
+Name: res/drawable-xxhdpi-v4/ntv_media_play_touch.png
+SHA1-Digest: hgG6hblCCoCL0bPy2DoNRehFk2k=
+
+Name: res/drawable/ntv_selector_searchbar_btn_search.xml
+SHA1-Digest: ayebTu0kLIsDShr5L6roTnb2OP0=
+
+Name: res/drawable/selector_continue.xml
+SHA1-Digest: 113uYXGCmELjVQLCuJ4poTVaEi8=
+
+Name: res/drawable/ntv_selector_highlight_sub.xml
+SHA1-Digest: ayUgyeYulPoSx8/CChf7t2kRmV8=
+
+Name: res/drawable-xxhdpi-v4/ntv_media_fullscreen_touch.png
+SHA1-Digest: P0m4FgKIWhxwZpVTNsPRH5SsOIg=
+
+Name: res/drawable-xxhdpi-v4/ntv_media_back_default.png
+SHA1-Digest: r+VBIGt4BPRw1JMQHNuPQrv+YVA=
+
+Name: lib/armeabi/libntv_mozjs185.so
+SHA1-Digest: Z3wireIVp/hrn9wzqJVL7Oh0I3U=
+
+Name: res/drawable-mdpi-v4/ntv_highlite_sub.png
+SHA1-Digest: Bbrx3uWhId2blUZU+BhGwkMtvwg=
+
+Name: res/drawable-mdpi-v4/ntv_red.png
+SHA1-Digest: 9QNBxZl48ozqOliv9Xf58NaMcgY=
+
+Name: res/drawable-hdpi-v4/ntv_media_play_touch.png
+SHA1-Digest: HOEa5iE3eFnifcJe08G+QwCzPA4=
+
+Name: res/drawable-mdpi-v4/ntv_memolist_bt_touch.png
+SHA1-Digest: DL8DlZH7se2ByFDLAOQP579DWOQ=
+
+Name: res/drawable/selector_down.xml
+SHA1-Digest: 113uYXGCmELjVQLCuJ4poTVaEi8=
+
+Name: res/drawable-hdpi-v4/line.png
+SHA1-Digest: 0Uvtt91MisNUwyL8zsk2qmSD5n0=
+
+Name: res/drawable/ntv_selector_highlight_green.xml
+SHA1-Digest: LwX2mgpybOgo2kQczkFKsceFBE4=
+
+Name: res/drawable-mdpi-v4/ntv_highlite_sub_touch.png
+SHA1-Digest: 4imI4fVOEht7imZRTl6ISZst6ag=
+
+Name: res/drawable-mdpi-v4/ntv_media_play_touch.png
+SHA1-Digest: B/9HtxBWN2bi3OKTg3GEemtk7D4=
+
+Name: res/drawable-hdpi-v4/thumbnail_back.png
+SHA1-Digest: 0LMWs+YWCDhmm1E60Cy8PYlFiBQ=
+
+Name: res/drawable-mdpi-v4/ntv_arrow_2.png
+SHA1-Digest: stKunMUgofBVeKePK369pdLL8W8=
+
+Name: res/drawable/progress_horizontal.xml
+SHA1-Digest: 8VgMFxtpyNDtoM3Tgxq0kPqC5nI=
+
+Name: res/drawable-hdpi-v4/ntv_media_play_default.png
+SHA1-Digest: gO7XpJhY9YbTIuxtnhHB/iFBuss=
+
+Name: res/drawable/ntv_selector_listview_search.xml
+SHA1-Digest: Z0Y0E1MqvVs5MlvSgtjO376Fw5U=
+
+Name: res/drawable-hdpi-v4/pause_button.png
+SHA1-Digest: GTixEXYpeneVzuDhgs667WuiOIo=
+
+Name: res/drawable/ntv_selector_searchbar_btn_next.xml
+SHA1-Digest: Ye7MNGrdxBG1vKdbOGHA+jkBa+U=
+
+Name: res/drawable-mdpi-v4/ntv_search_text.png
+SHA1-Digest: sPWjdlCctF46rni37wz99OGqGEs=
+
+Name: res/drawable-hdpi-v4/ntv_media_back_touch.png
+SHA1-Digest: DlQjo6w39xKtQlitBfcNgYMhpyw=
+
+Name: res/layout/main.xml
+SHA1-Digest: 9MZNZFm8qke7TDJaDuViaP38kyY=
+
+Name: manifest
+SHA1-Digest: mMPMo8V6pVtuzWe7ZFR440kXloo=
+
+Name: res/drawable-mdpi-v4/ntv_save.png
+SHA1-Digest: H11MG6YD4ZtPmrdWl9NPm+6O+vk=
+
+Name: res/drawable-hdpi-v4/delete_button_touch.png
+SHA1-Digest: h9I5zWmq2Nbos2Z2JZFz0LUAcUw=
+
+Name: res/anim/push_left_out.xml
+SHA1-Digest: pfRN8KCWPkD1BNSh13rh8PP0oeA=
+
+Name: res/drawable-hdpi-v4/ntv_media_fullscreen_touch.png
+SHA1-Digest: R4gP2zQ6mXYxk4+2aPIJbvLiJYo=
+
+Name: res/drawable-xxhdpi-v4/ntv_media_back_touch.png
+SHA1-Digest: VAOOV0svU/WW7yjdZotQm0JdEXs=
+
+Name: res/drawable-xxhdpi-v4/ntv_media_region_touch.png
+SHA1-Digest: GALFGeYcYW1t6pdK7thEapVNOqg=
+
+Name: res/drawable-mdpi-v4/ntv_highlite_touch.png
+SHA1-Digest: 1BBYwUyr/49Pztji8aU3XwtJi04=
+
+Name: res/layout/ntv_selectedtextview.xml
+SHA1-Digest: PLnVkRMsqSohy4en/9ENX79AYg0=
+
+Name: res/drawable-mdpi-v4/ntv_close.png
+SHA1-Digest: gP/5bigPL1PVrSuiyAIyPdWfvDw=
+
+Name: res/drawable/ntv_selector_media_back.xml
+SHA1-Digest: Onn4fQDgsHahF91oUTMz1206gCU=
+
+Name: res/drawable-mdpi-v4/ntv_memolist_text.png
+SHA1-Digest: c5RXnC0h1/OFIjxbmJpYg0B/CwQ=
+
+Name: res/drawable/selector_list.xml
+SHA1-Digest: kLXw5GhWgoFSJUywYwhU4KXg8W0=
+
+Name: res/drawable/ntv_selector_media_pause.xml
+SHA1-Digest: n+XQlXrEYIiYmDFqmRrtR2mcGOg=
+
+Name: res/drawable/ntv_selector_memosub_memolist.xml
+SHA1-Digest: vPNO0KsdZAnOE/UpwI5Lj7Iwyj4=
+
+Name: classes.dex
+SHA1-Digest: +SkvC6WQx0whpgGPnGyETV+y6tg=
+
+Name: res/drawable-mdpi-v4/ntv_search_edittext_bg.png
+SHA1-Digest: z9H7YuQkHAmeD3NScBkV6v6LEx8=
+
+Name: res/drawable-xxhdpi-v4/ntv_media_pointer.png
+SHA1-Digest: HGflj3VKkkxVsmtluYFjdDg8yJQ=
+

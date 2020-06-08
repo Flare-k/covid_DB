@@ -1,0 +1,26 @@
+1pg)
+- 메신저 프로그램
+	- 사용자한테 키보드 입력을 받고
+	-> 그 입력을 서버한테 보내면
+	-> 그 내용을 서버가 나랑 채팅하고 있는 사람한테 보내줌
+	- 이때, 메신저 프로그램은 나한테 키보드 입력을 받는 동시에, 서버가 보낸 내용을 나한테 display해줘야 함 => 동시에!!
+	- 키보드로부터 입력을 기다리는(cin) 동시에 네트워크로부터 패킷이 오기를 기다려야 함 => how? fork()로(UNIX기준) process를 2개 만든다 => 즉, 실행path가 2개가 되어야 함
+	- 실행자로부터 입력을 받는 process가 있어야 하고, network로부터 패킷이 오기를 기다렸다가 동작하는 process가 있어야 함
+	- 즉, 실행 path가 여러개 있기 위해서는 process가 여러개 있어야 함
+- 쓰레드라는 개념이 생기기 전에는 실행path가 여러개 필요한 program은 multiprocess로 만들었음
+- multiprocess의 예로 : web sever는 사용자로부터 connection이 오기를 기다리고 -> 사용자의 connection이 맺어지면, 그 사용자를 전담해서 처리하는 child process를 하나 만들고 걔한테 맡기고 -> 자기자신은 새로운 connection을 기다림
+- 이렇게 mulitiprocess를 사용하는 것이 일반적이었는데 -> 이제 OS의 성능을 개선하다보니까 -> process가 heavy-weight하다, 즉 OS가 무겁다고 판단함
+- OS입장에서 process를 하나 만드는데 overhead가 많이 발생함
+	- 예를 들어, child process를 10만큼의 시간을 들여서 만들었는데 -> 얘가 1만큼의 시간만 일하고 작업이 끝나서 죽었다 -> overhead
+	- 이걸 해결하기 위해서 생긴 개념이 thread임
+	- thread의 사전적 의미 : 실 (실처럼 생겨서 ㅋㅋ)
+	- thread는 "실행흐름"!!
+- 실행path를 "하나 더" 만들기 위해서 -> process라는 덩치가 큰 걸 만드니까 -> overhead가 큼 -> 따라서 process는 하나두고(원래 있던 거) -> process는 main함수 밖에 없었는데 -> 다른 함수도 실행하도록 하고 -> 이 두 함수를 동시에 실행시키면 됨 -> 그럼 process는 하나이면서 실행path는 여러개가 됨 -> thread
+
+2pg)
+- 실행path와 process 개념을 독립시켜보자! -> 그래서 나온개념이 thread
+- process
+	- memory address space
+	- resources(OS가 제공해주는 hw자원), 
+	- execution state(실행path라고 생각하면 됨)
+- 원래는 process하나에 실행path가 하나였는데 이제는 실행path를 여러개로 만들자는 게 thread임

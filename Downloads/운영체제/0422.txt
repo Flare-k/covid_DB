@@ -1,0 +1,60 @@
+- compiler는 process를 가상메모리 형태로 생성됨
+- process가 가상주소로 생성되는 것을 region(영역)이라고 함
+- region이 어떻게 구성되어 있는지 (자료구조적 관점에서)
+- execution(실행)될 때 region을 어떻게 manipulation하는지
+
+* process를 어떻게 생성하고 수행하는지 (보조자료)
+cf) process : programming execution // active한 instance
+    program : passive함
+
+- fork()를 통해서 process가 생성됐으면
+  cpu는 항상 main memory와 대화를 하잖아요 (물론 중간에 cache가 있지만)
+- second storage는 뒤에 창고로서 사용하고
+- fork()하고 main memory에 충분한 메모리가 남아있다면
+  cpu가 이제 니 차례야라고 scheduling함 (scheduling 방법 : RR, FCFS,,,)
+- kernel에서 수행함
+  system call을 받았을 떄 이미 kernel mode임
+  작업이 끝나면 user mode로 바뀜
+- interrupt를 당하면 preemptive상태가 됨
+
+- 질문 : 수행중이던 process가 갑자기 수면상태로 갈 수 있냐? no!
+  -> 왜? swap out해야함 (그림을 봐도 가는 길이 없는 걸 알 수 있음)
+  // 메모리에서 수면하든지(??? 이해X), swap out하고 storage에서 수면하든지
+  
+* 커널 프로세스의 자료구조 (보조자료 그림 2.5)
+- 8번, 9번 : 프로세스가 현재 open한 file의 정보와
+	    프로세스가 생성한 자식이 있다면 그에 대한 정보들을 u영역에 저장함
+	    디스크(second storage)와 메모리(main memory)
+	    사이를 왔다갔다 하는 정보를 u영역에 포함시킴
+
+- region : compiler가 program을 compile해서 linking -> loading -> run시킬 때
+	   생성된 process를 3가지(text, data, stack)로 나눠서 저장하는데
+	   -> process가 생성되면 process가 있어야 할 메모리 주소값이 필요함
+	      (아이가 태어나면 요람이 있어야 하듯)
+	   -> but) 메인메모리 주소값을 생성하는 것이 아니라 가상메모리를 할당
+	   -> 메모리관리자가 virtual address를 physical address와 mapping
+	   cf) 가상메모리(virtual memory), 메인메모리(physical memory)
+
+- fork()해서 process가 생성되면 해당 process의 region이 생성된 것
+process의 가장 핵심적인 text, data, stack이 있는데
+process마다 가상text,가상data,가상stack이 생성됨
+이 가상정보들을 실제정보로 link시킴
+
+* 프로세스와 리전(region) (보조자료 그림6.2)
+- "fork" system call
+	- process의 자료구조를 만들어줌
+	- 이름이 뭐고, id가 뭐고, PCB의 data structure가 뭔지까지만 해줌
+	- 이때, PCB의 data structure틀만 있고 안의 내용은 비어 있는 것
+- "execution" system call
+	- 자식이 생성됐으면 부모의 내용을 전부 복사해줘야 하는데
+	- fork는 자식process가 생성됐을 때 우리 아들 이름 뭐고, 주민번호, 기본틀만 생성
+	- 부모가 가지고 있던 내용은 execution하면서 저장되는 것
+	- execution은 region(실제영역)에 있는 내용을 복사하는 것
+
+* fork() 알고리즘 (보조자료 그림7.2)
+- fork()한다고 아 들의 모든 것이 다 생성되는 게 아니라 틀만을 생성
+- 틀 : PCB에 들어가는 정적정보, kernel구조를 만듦
+
+* exec() 알고리즘 (보조자료 그림7.19)
+- namei : file path가 주어지면 // directory 제일 끝에 file이 붙어있음
+

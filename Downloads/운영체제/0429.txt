@@ -1,0 +1,73 @@
+[ 0429운체 ]
+* 지난시간 복습
+- hard real time
+	- 마감시간이 엄격
+	- task하나라도 마감시간을 넘기면 fail
+- soft real time
+	- 마감시간이 hard real time보다는 덜 엄격.
+	- 하지만 마감시간을 너무 많이 넘기면 값어치가 없어짐
+
+* RMS(rate-monotonic scheduling)
+- 주기가 짧은 task에 높은 우선순위를 주는 것
+
+*마감시간
+- 타우1의 0번째 인스턴스의 마감시간은
+타우1의 1번째 인스턴스의 도착시간(arrival time) 전까지
+
+*오늘 배울 내용은 Apeniodic task schduling algorithm
+- system의 어떤 task들이 있냐면
+periodic task, apenriodic task들이 혼재되어 있어요
+- scheduling task의 goal은
+1) 주기적테스크 -> 마감시간 보장 해줘야
+2) 비주기적테스크 -> 반응시간을 빠르게 해줘야 
+
+* 즉, system은 주기적task와 비주기적task가 섞여있는데
+	- 주기적task는 -> 마감시간을 보장해줘야하고
+	- 비주기적task는 -> 반응시간을 빠르게 해줘야 함
+
+// scheduling algorithm의 3개를 설명하고
+// 그 중 2개는 programming할거임
+
+// ch7의 그림 틀렸음(pdf16pg)
+
+- 주기적 테스크들이 자기의 마감시간 내에 자신의 테스크를 마치면서
+  더 빨리 수행할 수는 없을까?
+ -> polling server를 도입
+
+- polling server라는 가상의 server를 도입
+- polling server는 aperiodic task를 위해 존재하는 task임
+- 주기적 taskA, taskB의 주기보다는 작거나 같은 polling sever를 도입
+- 왜? polling server도 마치 주기적task처럼 구현함
+- 우선순위를 제일 높게 해서 scheduling
+- 즉, polling server의 주기는 주기적task중 가장 짧은 주기보다 같거나 더 짧아야
+- polling sever는 오직 비주기적테스크를 위해서 serving(구동)하는 거임
+
+// 과제 // 1시간 1분 녹화
+1)  background aperiodic task scheduling algorithm 구현
+
+- 주어진 주기적 task들 : 5개
+- T1(타우) : c1=1, t1=5
+- T2 : c2=1, t2=10
+- T3 : c3=1, t3=15
+- T4 : c4=3, t4=30
+- T5 : c5=5, t5=60
+
+- 주어진 비주기적 task들 : 3개
+- AP1 : arrival time=7, computation time=2
+- AP2 : arrival time=10, computation time=1
+- AP3 : arrival time=29, computation time=1
+
+2) polling server aperiodic task scheduling 구현
+Tpoll : 5
+Cpoll : 1
+
+- back ground APS의 평균지연시간(avg waiting time)을 구하라
+- polling server APS의 평균지연시간을 구하라
+- Bonus Point : 그림(gantte chart)를 그려서 비주기적task scheduling구현을 보여주세요,,
+- 마감 : 5/11(월) 낮12시 00까지
+- 이게 쉬운 과제라구요,,,? 교수님,,,,,,,,교수님!!!!!
+- 제출 : source code + documentation(구현결과 pdf file로 보여주기) + 자료구조설명(program목적+실시간시스템 + input,,등등)
+
+- 주기적테스크는 먼저 들어온 녀석? 우선순위 높은 애 먼저? 마감시간 보장하면서 + 반응시간 빨리(평균대기시간빨리)
+
+- 언어는 상관없음 자바, 파이썬, 씨쁠쁠 ok

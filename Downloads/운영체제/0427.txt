@@ -1,0 +1,37 @@
+// 실시간 scheduling으로 넘어가기 전에 unix에서 어떻게 booting하는지 (보조자료)
+- init이 계속 fork()해서 시스템이 돌아갈 수 있음
+- fork()하기 위해서는 부모의 영역(region)에 있는 image를 복사해야함
+
+// ppt3장 : Process concept
+19~21pg)
+- process를 할당하기 위해서는 항상 ready queue에 process를 저장해야함
+- interactive response time이 짧아야하고
+- bach system은 throughput이 많아야 함 
+
+// 실시간 알고리즘 스케줄링
+- hard rt (hard real time) : 군사무기system
+- soft rt (soft real time) : 일반system
+
+- real time system에서 중요한 것은
+	1) 마감시간(deadline)내에 task들이 scheduling되야 함
+	2) 예측가능해야함(예측성보장)
+
+- hard real time : deadline이 엄격
+		   ex) 요격미사일에서 deadline 못 맞추면 목표물 못 맞춰서 큰일남
+- soft real time : deadline이 hard rt보다 덜 엄격
+		   ex) 게임에서 동작이 살짝 느려도 큰일은 안 일어남
+
+- hard real time
+	- periodic task(주기적 task) : 대부분이 periodic임
+	- aperiodic task(비주기적 task)
+		ex) 비행기가 날아가는데 천둥번개가 침(예측불가)
+
+// 오늘 배울 내용은 주기적scheduling
+// 과제가 나갈 내용은 비주기적scheduling 2가지
+
+- periodic scheduling의 task의 개수가 1000개였고 20번째가 수정이 됐어
+  -> 근데 task20떄문에 누군가 하나라도 마감시간을 놓치면 그 scheduling은 망한거
+  -> 이때, 마감시간이라는 건 그 다음 arrival의 도착시간
+  -> 따라서 추가,변경되는 task는 os에게 물어봐야함
+     "나 때문에 전체 real time scheduling system에 문제가 생기는 건 아닙니까?"
+

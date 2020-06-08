@@ -1,0 +1,185 @@
+지금까지 critical section의 상호배제 하는 방법을 논의함 
+sw solution, hw solution, semaphore까지 했구요
+이번시간 monitor을 들어감
+
+병행 process들이 서로 cirtical section에 서로 접근하려고 경쟁할때(racing problem) 동기화기능이 필요하다고 했죠
+동기화 기능중에서 가장 이해의 난이도가 높은 모니터에 대해 이번시간 다음시간 배워보도록 하겠습니다
+언어에 구조체라는 게 있잖아요 object. encapsulation이 됐다고 하죠.
+
+모니터의 구조
+
+모니터에서 중요한 큐가 3가지
+큐의 특징 : 먼저 들어온 job이 먼저 수행 (first in first out)
+모니터는 high level language structure
+
+엔트리 큐는 모니터큐의 상호배제를 컨트롤 ME를 보장하기위해서 제어
+컨디션 큐는 어떤 조건이 맞아야 함 x.wait(x라는 조건이 만족할 때까지 기다리세요) x,signal(x라는 조건이 만족됐으니 풀어주세요)
+
+1) 모니터 바깥으로 뺀 후에 -> entry queue에 넣자
+2) 모니터 바깥으로 빼지 말고 -> 모니터 내부에 next queue를 만들고 -> next queue에 대피시키자 
+// (body에) 아무도 없어야지 이제 들어올 수 있잖아 (크리티컬 섹션하고 마찬가지) 
+// 다들 모니터로 들어오려고 경쟁함
+
+컨디션 큐는 조건이 맞아야 들어오는거고
+엔트리큐는 모니터 body에 엑세스 하려는 애
+
+1) 원래 body에 x가 있었어
+2) x가 잠시 next queue에 대피하고 body에 t가 들어옴
+3) t가 수행을 마쳐서 나감 (현재 x는 next queue에 있고, m은 entry queue에 있어)
+4) 자 그럼 이제 누가 body로 들어올 수 있을까?
+
+x는 body에서 작업을 끝마치지 않고
+t가 body로 들어오면서 잠시 next queue로 대피한거니까,
+(이때 x가 모니터 바깥이 아닌 모니터 내부의 next queue로 대피함)
+next queue에 저장되어 있는 x를,
+m이라는 process보다 높은 우선순위를 주는 거에요
+
+높은 우선순위를 주은 것에 대해서
+x는 하다가 잠깐 중단했다가 대피했기 때문에
+x는 처음 들어오는(=entry queue에 있었던) process m보다
+우선순위가 높아야 함
+
+다신 모니터 바깥으로 x가 빠져버리면 x의 우선순위는 낮아짐
+그래서 모니터 내부에 자료구조를 둔거야
+
+모니터는 3개의 section으로 나누고
+모니터 내부에는 3개의 queue가 달려있음
+
+모니터로 구현하는 예 // 보조자료 (알고리즘)
+- 네모상자가 모니터 구조체
+- 파스칼에서 procedure라는 단어는 C언어에서 함수(function)임
+
+이 프로시져 두 개를 수행,, 특정,,?? 두개가 들어오면 안된다는 거임
+나머지는 모니터에서 사용되는 변수 (in and out)
+선언된 변수 초기화
+달걀 모양의 구조체야
+큐는 안보이는거야 추상화되니까
+모니터의 프로듀서 컨슈머라는 문제를 모니터라는 솔루션으로 풀어본거임
+모니터라는 구조는 알겠는데 이게 뭐냐
+두개의 프로세스가 동시에 안 하면? 시퀀셜한거야
+
+p -> p -> p // 이렇게 3번 한꺼번에 할 수도 있잖아
+소비와 생산은 로컬로해도 되는데
+append, take out은 buffer를 통해서 해야함
+
+그럼 버퍼가 뭐냐?? 버퍼는 critical section임
+왜? 프로듀서와 컨슈머가 동시에 concurrent하게 돌아
+공유하니까!
+그럼 뭐가 critical section의 ME를 보장해야하지?
+monitor가 ring buffer의 ME(상호배제)를 보장
+monitor의 역할은 프로듀서와 컨슈머가 공유하는 ring buffer의 ME를 보장하고 ,,, ??? 놓침 언제만 상호배제 하면돼? append와 take out할 때만 상호배제 시키면 됨
+
+정리한다면
+컨슈머와 프로듀서를 컨커런트하게 수행
+ring buffer를 쓴 이유는 끝까지 가면 돌아오기 힘드니까
+(자구 복습해야 할 듯)
+buffer에 item을 append하고 take out할 때
+언제 무엇을 해라? 모니터는 프로듀서가 생성하는 것을 간섭하는 것이 아니라 append할 때 간섭하는 거
+append와 take out할 때 간섭
+append할 때 take out으로 접근하면 안돼
+
+상호배제할 때 뭐 세마포어도 있고 뭐도 있지만
+지금 이건 모니터로 상호배제하는 거
+아 미친 이거 코딩과제 나오면 안되는데,,,,,,,,,,,,
+
+프로듀서 컨슈머 문제를 해결하려고
+생성하고 소비하는 거 자체는 병행해도 되는데
+append와 take out은 상호배제를 시켜야 함
+
+모니터를 어떻게 구동하는지에 대해서는 보충자료 보면 됨
+이건 파스칼로 짬 씨언어보다 읽기가 쉽대 readability가 있음
+
+파스칼의 main은 가장 밑에 선언됨
+
+procedure producer; // procedure : 함수 // producer : 함수 이름
+
+repeate ~ forever하는 거임
+monitor entry call임 (모니터에 들어가기 위해서 호출했다는 거임)
+네모박스 안의 ,,, 프로듀서가 생성하고 생성한 아이템을 붙여라 어디에다? 링버퍼에 
+다시 얘기하면 컨슈머는 function consumer인데
+계속 반복해서 작업해라
+take out해라 어디로부터? 버퍼로부터
+monitor entry call
+모니터 내부에 있는 함수를 호출한거야
+그 함수는 버퍼로부터 아이템을 끄집어 내는거잖아
+append는 프로듀서가 생성한 아이템을 붙이는 거
+
+모니터라고 하는 건 박스가 모니터
+그 모니터에 뭐를 한다? 붙이고 뗴어내고!
+그치만 프로듀스와 컨슈머는 concurrent하게 작업할 수 있음
+producing을 하고 consuming은 동시에 가능 (local)
+append가 monitor을 call해서 작업할 때
+take out이 그 상황을 monitor에서 본다고?? 
+
+컨슈머는 모니터 body의 take out을 부른다고?
+모니터 엔트리 콜,,, ㅎㅎ,, 부른거야 컨슈머가
+뭐하려고? 컨슈머 하려고
+그래서 딱 들어갔더니 컨슈머 할만한
+자 그럼 take out은 어디로갔어요? 모니터 내부로 들어갔어요
+근데 n=0이니까 no items in buffer임
+그러면 모니터 밖으로 빠져나가? ㄴㄴ 그 때 condition queue로 들어감
+그럼 컨디션큐에서 뭐 기다릴까? 버퍼에 아이템이 하나라도 있기를 기다림 (if at least one item in buffer하면 activation한다 -> buffer로부터,,,파라메터,,,v로 실어다가,,,)
+여기서의 조건이라는 것은 buffer가 empty가 아닐 때까지 기다려라 // condition
+
+그럼 프로듀서도 똑같은 원리이겠구나
+예를 들어 프로듀서가 append하려고 했는데
+buffer가 꽉 찼어
+그 때 넣으면 오버플로우
+condition : buffer가 full이 아닐 때까지 -> y라는 condition
+y.wait하면 y할 때까지 기다려라
+y.signal하면 consumer가 들어와서 buffer에 있는 item을 take했으니까 이제 full하지 않다는 거임
+
+모니터 body 내에서의 상호배제(ME)라는 거임
+
+b[in]:=v //buffer의 in이 가리키고 있는 곳에 v를 집어넣어라 
+
+producer가 append하러 왔을 때 모니터 안에 누가 있네, ME보장 못하는 거 아니야? 이게 아니라 buffer를 implementation하는 monitor body에 아무도 없다는 것이 ME(상호배제)임
+condition queue에 2개가, next queue에 1개가 있을 수 있음 (condition queue, next queue, entry queue이것들도 다 monitor안에 있는 큐임 -> 그니까 모니터 안에 아무도 없어야 하는 게 아니라 모니터 body안에서 작동하고 있는 것이 아무도 없어야 ME가 보장된다는 뜻)
+
+cf) 세마포어의 프로토콜은?
+세마포어는 low level language
+  -> 상호배제(ME)와 동기화 기능을 제공함
+  -> p(s)는 WHILE s <= 0 DO skip; s := s-1;
+     v(s)는 s := s+1;
+
+모니니터의 프로토콜을 어떻게 구동할까?
+x.wait
+x.signal
+=> 이 두개는 condition variable (조건을 담당하는 변수)
+
+모니터라는 매커니즘이 이와같은 변수를 쓴 사람에게
+묵시적으로 제공되는 프로토콜이 있음
+=> semaphore로 시뮬레이션 함 // 중요
+
+동기화란? sequence를 control하는 것
+이때 x.wait, x.signal을 semaphore로 구현함
+x.wait, x.signal => 모니터에서 semaphore가 동기화기능을 제공하는것임
+
+왜 동기화할까?
+process x가 작업을 하고 있는데 t라는 애가 condition을 기다리고 있어. 그런데 t라는 condition queue에서 기다리고 있는 process가 자기 조건을 만족했다고 해(예를들어 full이 아니다, empty가 아니다) 
+
+//???
+.. 숫자를 써??(1,2,3,4??)
+세마포어할 때 순서가 있었죠 (복습하자,,,)
+소프트웨어 솔루션 두번째 세번쨰일 때 concurrent하게 놓침 한 프로세스 순차적 아니고 교대로 한다든지 임의로 한다든지 이렇게 하면 문제가 발생한다 (무슨말이야)
+// 1,2,3,4는 순서라는 거임
+결론 : 순서를 무시하면 상호배제(ME)를 망치는 거야
+나가면서 시그널 주고 -> 시그널 받으면 next queue,,
+
+이게바로 동기화라는거임
+동기화의 의미가 여기서는 시퀀스를 컨트롤한다는거임
+x.signal, x.wait를 세마포터로 시뮬레이션함
+
+동기화 = concurrency control
+동기화는 OS가 담당
+
+multiprogramming environment process들이 병행수행
+성능을 개선하기 위해서 (순차적으로 수행하는 것보다)
+
+단, 조건은 process간에 공유하는 shared영역(critical section)은 상호배제하고 나머지는 병행수행해도 된다
+
+동기화라는 것이 일반적으로 생각하는 handshaking
+(동시간에 동일장소에서 만나서 주고받는 것)일 수도 있지만,
+message passing방식으로 mail box를 통해 주고받을 수도 있음
+
+// 수업 끝부분에 중간대체과제 summery 방법 설명해주심

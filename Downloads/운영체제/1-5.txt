@@ -1,0 +1,94 @@
+*network structure
+- IO장치 중에서 특이하게 network도 있음
+- network중에서 가장 중요한 개념 : OSI 7 layer model (참고:https://shlee0882.tistory.com/110)
+	- application layer
+	- presentation layer
+	- session layer 	// 위의 세개는 합쳐서 application layer로 퉁쳐도 됨
+				=> app
+	- transport layer : 노드와 노드 사이에는 많은 프로그램들이 수행되고 있는데
+			    end-to-end 프로세스간 데이터 전달
+			    ex) 웹브라우 프로세스와 웹서버 프로세스 간의 데이터 전달
+	- network layer : end-to-end 노드간 데이터 전달
+	- datalink layer : 인접한 노드(케이블의 양쪽끝)간 (신뢰성 있게) 데이터 전달
+	- physical layer : 케이블
+
+//프로그램 vs 프로세스
+- 프로그램을 실행시키면 실행되는 주체가 프로세스
+
+- layer 각각의 protocol
+	- application layer
+	- presentation layer
+	- session layer		// 위의 3개 합쳐서 application layer
+				: web => http // mail => smtp //
+				  network망 관리 =>snmp // file IO => ftp
+	- transport layer : tcp, udp => 차이점 : 신뢰성 (자세한 설명 17분)
+	- network layer : ip(=internet protocol)
+	- datalink layer : Ethernet(유선)
+	- physical layer : 케이블
+
+- layer 각각을 처리하는 주체
+	- application layer
+	- presentation layer
+	- session layer		// 위의 3개 합쳐서 application layer : app process
+	- transport layer : OS(sw)
+	- network layer : OS(sw)
+	- datalink layer : LAN card(IO장치임)
+	- physical layer : 케이블
+
+*Mainframe System
+- 컴퓨터 크기는 큰데 성능은 나쁜 초창기 컴퓨터
+- 이 당시 컴퓨터를 수행시키는 프로그램을 job이라고 했음
+- 한 번에 job을 하나씩만 수행시킴 -> 다 끝나면 그 다음 job -> 반복,,,
+- 그러기 위해서는 수행중이던 job이 끝났는지 아닌지를 관리해주는 프로그램을 (resident) monitor(지금으로 따지면 os)라고 했음 
+
+*Multiprogrammed Batch System ~ OS features needed for multiprogramming
+- 하나의 프로그램 수행하고 그 다음 프로그램 수행하는 방식의 문제점
+1) 큰 거 돌리면 뒤에 다른 애들을 수행할 수가 없음
+2)(★) CPU에서 수행하다가 IO장치에 명령을 내리면
+      => CPU는 빠르고 IO장치는 느려서 CPU가 IO장치 기다려야 함
+
+- 해결책 => 한 번에 job을 여러개 올려 => job1이 IO장치를 요청했어 => 그 사이에 job2를 수행
+
+- Simple batch : job을 한 번에 하나씩 수행 -> OS의 할 일 : 프로그램을 메모리에 올리고 다 끝났는지 아닌지 모니터링 하고 있다가 끝나면 다음 작업 올려주는 거
+- Multiprogrammed batch : job을 한 번에 여러개 올려두고 번갈아가면서 수행 -> OS의 할 일 : 여러개의 프로그램을 메모리에 올리고 -> IO장치를 요청할 때마다 다른 작업을 수행시켜야 함 -> cpu scheduling : cpu에서 수행시킬 프로그램을 선택하는 것이 필요 // 41분
+
+* Time-Sharing Systems-Interactive Computing
+- Multiprogrammed batch의 문제점 : job1이 IO요청 없이 계속 작업함 -> 다른 애들을 수행할 수 없음 -> 해결책 : Time-sharing -> CPU가 사용되는 걸 시간 구간별로 잘라서 돌아가면서 수행시키는 것(시간 구간 = time cut term : 책에 나오는 용어)
+
+*Terminology
+- Batch / Multiprogramming / Time-sharing(=Multitasking)
+- job scheduling / cpu scheduling : 둘이 비슷
+// scheduling : 어떤일을 할지 고르는 것
+- job / task / process : 비슷
+- concurrent / simultaneous / parallel
+	- concurrent : cpu가 하나인데 process가 10개 -> cpu하나에서 10개를 나누어서 실행
+	- parallel : cpu 10개, process 10개
+
+* Parallel systems(병렬시스템) : 보드 하나에 cpu 여러 개 넣는 거
+	- tightly coupled system(cpu들이 tightly하게 짝지어서, 연관되어 수행)
+	- 장점
+		- throughput(단위 시간당 처리량 = 몇 개의 instruction을 처리하느냐)이 좋다
+		- reliablility(신뢰도)가 증가 : 하나가 망가지더라도 다른 데서 돌아갈 수 있어서
+		- graceful degradation(감소) : cpu 하나가 고장이나면 성능이 점차적으로 줄어듦
+		- fail-soft system(=fault-tolerant(=고장이 견딜만하다) system) : cpu 하나가 고장이 나면 다른 cpu에서 대신 수행해줌
+	- SMP : 똑같은 성능의 cpu를 여러개 넣는 것
+	- Asymmetric muliprocessing : 성능이 다른 cpu를 여러개 넣는 것
+
+* distributed systems(분산시스템) : 보드 하나에 cpu 하나인데 network로 연결하는 거
+- cpu는 독립적으로 수행됨
+- cpu와 cpu사이가 network로 연결되어 있기 떄문에 tight하지 않고 loose함 => loosly coupled system
+
+// cf) 서버컴퓨터 : parallel system하고 distributed system을 합쳐서 사용
+
+* clustered systems (이 이후부터는 최신trend라서 개념이 모호함)
+: 서버컴퓨터들이 보드 하나에 parallel system이 들어가있고 => RAM에 꽂히면서 networking infrastructure로 연결이 됨 => distributed system임 => 여러 컴퓨터들이 별도로 존재하는 secondary storage(HDD)를 공유함
+- 한 마디로 storage를 공유하는 것을 clustered system이라고 함
+
+// 현대 대용량 시스템은 = parallel + distributed + clustered system임
+
+* "real-time" embedded systems (그냥 embedded system하고는 다름)
+: 원래 컴퓨터는 주어진 입력에 대해서 주어진 출력만 똑바로 하면되는 거였고, 언제까지 하라는 제약조건이 없었어 -> 언제까지 수행하지 않으면 문제가 발생하는 거 경우가 real-time임 -> 즉 시간제약조건이 추가된 것
+- hard real-time : 시간제약조건을 만족하지 못하면 큰 문제가 발생함
+	- ex) 원자로의 온도 모니터링 및 제어, 패트리어트 미사일, 공장자동화 프로그램
+- soft real-time : 시간제약조건을 만족하지 못하면 큰 문제는 발생하지 않지만 지금까지 계산해놓은 결과가 아무의미가 없어지는 것
+	- ex) 동영상재생(초당 n프레임을 디코딩)

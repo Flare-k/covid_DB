@@ -1,0 +1,42 @@
+* 지난시간복습
+- mainframe system : 옛날 - 덩치 큰 최초의 컴퓨터(한 번에 하나의 job만 수행가능 -> job이 끝났는지는 monitor가 보고 있고 -> 끝나면 다음 job수행)
+		     지금 - 대용량 고성능 컴퓨터(은행에서 사용됨)
+- multiprogramming system
+	- batch system의 문제점을 보완하기 위해 생겨남
+		- 문제점 : 빠른 CPU가 느린 IO한테 작업을 명령하고 CPU는 노는 일이 생겨서
+	- 여러개의 job들을 메모리에 올려두고 -> job1에 대해 IO장치가 수행하는 동안 -> 다른 job을 수행
+- time-sharing system
+	- multiprogramming system의 문제점을 보완하기 위해 생겨남
+		- multiprogramming system은 하나의 job이 IO를 요청하면 IO를 수행하는 동안 다음 job으로 넘어가는 건데 -> 만약 IO가 발생하지 않는 경우 문제가 발생함
+	- 시간을 쪼개서 쪼개진 시간 구간별로 프로그램을 돌아가면서 수행하는 것
+	- 만약 쪼개져서 할당된 시간을 다 못쓰고 그 사이에 IO를 요청하면 다음 job으로 넘어가는 거임(즉, multiprogramming system의 개념이 남아있음)
+	- 사용자와의 대화시간이 좋아짐(=응답시간이 빨라짐) 
+- desktop system = PC
+- parallel system : 보드 하나에 CPU 여러개 // tightly coupled // memory를 share하고 bus로 연결
+- distributed system : CPU가 network // loosly coupled
+- clustered system : storage를 공유
+// parallel + distributed + clustered => 서버컴퓨터
+- embedded system : 제품안에 컴퓨터 내장되어 있는 거, 제품 전용의 목적으로 사용되는 컴퓨터
+- real-time embedded system : hard real time, soft real time
+
+* handheld systems : 핸드폰
+
+* computing environments
+- traditional computing : 컴퓨터 앞에 사람이 앉아서 명령을 내리고 수행하는 것
+- client-server computing : network, 대용량server이 존재, 개인용컴퓨터가 널리쓰임 -> 개인용컴퓨터가 client가 되어 server에 서비스를 요청 -> server에서 계산이 되고 -> client에서 결과를 받음
+- peer-to-peer computing : client와 server가 별도로 존재하는 것이 아니라 -> 어떤 경우에는 client로 쓰이고, 어떤 경우에는 server로 쓰이는 것 // ex) torrent(P2P)
+- web-based computing : client-server computing을 web기반으로 하는 것
+
+* 1st
+- 폰노이만 아키텍쳐
+	- 메모리에서 명령어를 하나 읽어와서 수행시키고 -> 그 다음 명령어 읽어와서 수행시키는 것
+	- 메모리에서 데이터를 가져오는 방식과 명령어(instruction)를 가져오는 방식이 같다
+//cf) 하버드 아키텍쳐 
+	- 메모리에서 데이터를 가져오는 방식과 명령어를 가져오는 방식이 다르다 -> 캐치메모리 때문!(캐시메모리를 데이터 따로, 명령어 따로) -> 캐시의 적중률을 높임
+
+* OS classification
+- Monolithic Kernel : OS의 모든 기능이 한 곳에 뭉뚱그려져서 개발됨
+	- OS의 모든 기능 = process관리, memory관리, IO장치관리, FileSystem관리
+	- ex) UNIX
+	- 문제점 : Linux Kernel의 크기가 큼 -> Linux Kernel의 모든 기능이 필요가 없고 일부 기능만 필요한건데 CPU, Memory를 어쩔 수 없이 큰 걸 써야 함
+- Micro Kernel : Kernel 기능 중에 정말 필요한 Kernel로 만들고, 나머지는 APP으로 만듦

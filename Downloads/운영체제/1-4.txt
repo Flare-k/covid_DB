@@ -1,0 +1,74 @@
+cpu가 I/O장치한테 너 이런 일을 수행해라고 명령함
+그러면 I/O장치가 어 나 이런 일을 다 했어라고 말함
+
+또는 외부에서 이러한 이벤트가 발생했다고 I/O장치가 CPU한테 알려줌
+ex)키보드가 눌렸다
+
+cpu의 명령어 중에 I/O장치로부터 데이터를 읽어들이고 => IN
+I/O장치로 명령어를 내보내는 거 => OUT
+
+OUT명령어 -> hdd에 주소를 씀 -> 명령어를 내림 -> I/O controller하고 I/O장치가 일하는 사이에 -> CPU는 다른 할 일 하면 됨 -> I/O장치가 일을 다 했어 -> CPU한테 알려주기 위해서 interrupt
+
+ex) platter의 track N번의 sector M번부터 M+50번까지 읽어라 : OUT
+
+Interrupt 2가지 : Polling / Harware Interrupt
+Polling : 물어보는거 -> CPU가 다른 거 하다가 너 다했니? 하고 직접 물어보는 거 -> hardware interrupt에 비해서 비효율적임 -> 물어보는 게 오버헤드
+Hardware Interrupt : CPU는 하던 일 하고 -> IO controller가 작업 마치면 interrupt해서 다 끝났음을 알려줌 -> CPU는 하던 일을 저장함(하던일=CPU가 수행중이던 Register의 상태) -> 해당 interrupt가 있는 주소로 jump함 -> interrupt 처리하고 -> 아까 save해둔 상태로 돌아옴
+
+오버헤드 : 안해도 되는데 쓸데없이 하는 거 (32분 개웃김ㅠㅠ)
+
+blocking 방식 : app은 cin에서 데이터 입력 기다림 -> 키보드에서 입력되서 OS통해서 app에 전달될때까지 app은 기다린다,,, // 38분
+nonblocking 방식 : 키보드에서부터 데이터를 받아야함 -> 운영체제한테 받아줘라고 요청 -> 자기는 다른 일 수행하다가 -> OS가 데이터받아서 APP한테 전달하면 그때 받는거 -> 즉, asynchronous(싱크X), nonblocking(=기다리지않아서)
+
+*interrupt vs exception
+인터럽트 2가지 (얘는 넓은 의미의 인터럽트)
+	- Interrupt (얘는 좁은 의미의 인터럽트) : IO장치에서 발생한 이벤트를 CPU한테 알려주는 것
+	- Exception : cpu가 cpu 자기자신한테 interrupt를 거는 것 -> 그러면 OS가 수행됨(OS가 해결해주는 거임)
+	ex) CPU가 나누기 연산을 하는데 -> 0으로 나누는 건 불가능 -> CPU가 할 수 없는 연산이 발생했음 -> OS의 도움이 필요함 -> exception을 건다 -> 즉, illegal한 경우
+	ex) 명령어는 명령어인데 알 수 없는 명령어인 경우
+
+protection fault / page fault
+메모리를 read,write하여 operation을 수행했는데 하면 안되는 작업을 수행해버린 경우
+ex) 참조할 수 없는 메모리를 참조하였습니다, memory protection fault
+
+trap : app이 os에 서비스를 요청하도록 프로그램이 돌아가는 것
+ex) cin -> app이 수행되다가 입력받기 위해서는 os가 수행되어야 함 -> 이때 실행되는 명령어가 trap임
+
+IO장치가 stop시키는 건 interrupt vs cpu 자기 자신이 stop시키는 거 exception
+
+*DMA
+키보드의 어떤 키가 눌렸는지 알기 위해서는 -> cpu에 있는 register로 눌려진 키보드의 키의 값을 읽어오면 됨-> 데이터의 키가 같기 때문에 가능함 -> but) 디스크한테 N번부터 M번까지 1MB를 읽어서 CPU로 가져와라고 하는 건 불가능 -> CPU에는 1MB를 저장할 공간이 없기 때문 -> CPU에 읽을 수 없기 때문에 메모리장치에 읽어야 함
+
+즉, IO controller가 data를 읽어서 CPU에 저장하는 것이 아니라 memory에 저장하는 것
+원래는 IO 장치와 CPU간에 통신해야 하는데, IO 장치와 memory간에 통신 하는 것을 가능하게 하기 위해 -> IO장치가 memory를 직접 사용하는 방법임 = DMA(direct memory access) //49분
+
+cpu, memory, IO device는 bus로 연결됨 -> bus : 한 노선에는 한 버스만 다닌다고 생각하셈 -> CPU가 bus를 쓰지 않을 때 IO device가 DMA로 memory에 갖다써야 충돌이 발생하지 않음
+
+*Hardware "Protection"(보호) //cf) security(보안)
+-IO "Protection" : program이 IO장치를 망가뜨리지 않게 보호
+		 : IO장치를 남들은 못쓰게 하고 자기 혼자 쓰게 하면 안됨 (10명이 같이 써야 하는데 1명이서 쓰면 안됨)
+		 : IO장치를 직접 사용하지 못하게 막는거임 -> IO장치는 OS만 관리해야함 -> app은 OS에 서비스를 요청하는 것뿐임 
+-Memory "Protection" : memory에 프로그램이 동시에 수행되고 있는데 A라는 프로그램이 B라는 프로그램의 메모리 영역에 이상한 데이터를 막 쓰게 하면 안됨 -> 자기한테 할당된 메모리 영역만 access하도록
+-CPU "Protection" : 지금 수행시킬 프로그램이 10개인데 -> 그 중에 한 놈이 CPU를 독차지하면 안됨 // 55분
+
+// 보호 vs 보안
+- 보호 : 내부의 적으로부터 "보호"하는 거
+ex) 하나의 컴퓨터에 두 명의 사용자가 접속해서 사용 -> 사용자B가 사용자A가 실행하고 있는 프로그램을 죽이면 안됨 -> 보호가 필요
+ex) 참조할 수 없는 메모리를 참조하였습니다
+- 보안 : 외부의 적으로부터 "보안"하는 거
+
+*Dual-Mode Operation : CPU가 Operation을 수행하는 2가지 모드
+- Kernel Mode(=Monitor Mode,System Mode) : OS가 수행되는 모드
+- User Mode : 사용자 프로그램(APP)을 실행시키는 모드
+ex) Kernel Mode에서 OUT이라는 명령어 수행됨(ok)
+ex) User Mode에서 OUT이라는 명령어 수행되는 건 적법하지 않음 -> 막아야함 -> CPU는 자기자신한테 exception을 건다 -> OS는 잘못동작하는 process를 kill한다
+User모드에서 수행되지 않는 명령어를 정해둠 -> 그건 Kernel모드에서 수행됨
+
+*Dual-Mode Operation (Cont'd)
+privileged instruction : 특권을 가지고 있는 명령어 = IO장치들을 제어할 수 있는 명령어
+
+*Memory Protection
+*CPU Protection
+ex) 내가 무한루프를 도는 프로그램을 짜도 CPU protection에 의해 무한루프 프로그램이 CPU를 독차지 않도록 하기 때문에 무한루프를 도는 도중에도 mp3 player을 실행시킬 수 있다
+	- timer interrupt(★) : timer라는 IO장치가 있는데 -> 주기적으로 interrupt를 걺
+	ex) 내가 짠 무한루프가 10ms(=100Hz)동안 돌아 -> 10ms후에 timer로부터 interrupt 발생 -> -> 하던 일을 멈춰 -> interrupt handler 수행 -> timer을 처리 -> 아까 하던 작업으로 돌아갈 때 OS가 실행됨 -> mp3 실행 -> 무한루프 수행 -> 반복,,,

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0"?>
+<catalog>
+
+<book>
+<id>smc02</id><!--  콘텐츠 구별하기 위한 문자 조합(특수문자 제외)  -->
+<version>1</version><!--  콘텐츠 버전 정수(ex 1,2.3...) -->
+<name>학생 준칙</name><!--  목록에 표시되는 콘텐츠 이름  -->
+<thumbnail>http://mobilefrontier.cafe24.com/cdg/icon02.png</thumbnail><!--  목록에 표시되는 썸네일 이미지 경로 -->
+<zipurl>http://mobilefrontier.cafe24.com/cdg/document02.zip</zipurl>
+</book>
+</catalog>

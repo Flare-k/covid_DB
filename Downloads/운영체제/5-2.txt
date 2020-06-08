@@ -1,0 +1,88 @@
+19pg)
+- process가 cpu burst/io burst 있는데
+	-> 지금 수행되고 있는 cpu burst의 크기가 얼마나 될지는
+	-> 수행시켜보지 않고서는 알 수 없음
+	-> 즉, 실행시간을 정확하게 예측할 수 없다
+	-> pg19에서 실행시간을 예측하는 알고리즘을 소개했지만
+	-> 결국은 length of next cpu burst을 예측하기는 어려움
+	-> 따라서 SJF라는 알고리즘은 이론적으로는 waiting time에 대해서는 optimal하지만
+	-> 실제로 OS에 적용하기는 어려움 
+
+22pg)
+- priority scheduling
+	-> 우선순위를 어떻게 주느냐에 따라서
+	-> scheduling 알고리즘의 정확성/중요성이 달라짐
+	-> flexible한 방법
+
+- priority scheduling의 장점
+	-> process가 여러개 있을 때
+	-> os입장에서 중요한 process도 있고 아닌 process도 존재
+	-> pritority를 달리해서 처리할 수 있음
+	-> 즉, 내가 사 용하고자 하는 목적에 가장 맞게 부합할 수 있음
+
+- priority scheduling의 실생활 예
+	-> 백화점 vip고객들 은 줄 서서 계산하지 않음
+
+26pg) 
+- time quatum이 cpu burst의 크기보다 완전히 커버리면 의미가 없음
+	-> 그건 context switch를 내가 강제로 한 게 아니라
+	-> process가 자발적으로 하는 거임
+	-> average cpu burst보다 조금 크게 하는 것이 이상적임
+
+27pg)
+- time quantum에 따라서 RR은 trade off관계가 발생
+	-> 따라서 time quantum의 크기를 잘 정해야 함
+
+29pg)
+- scheduling queue를 여러개 두고
+각각의 특성에 맞는 scheduling algorithm을 적용하자
+- foreground process : 사용자가 interactive하게 대화하면서 동작하는 process // interactive
+- background process : 뒤에서 돌아가는 process // batch
+ex) FTP로 영화를 받으면서 파워포인트로 editing을 하고 있었음
+	-> 파워포인트 : foreground process
+	-> 파워포인트는 사용자와 "interactive"하게 동작해야 함
+	-> FTP로 영화를 받는 process : background process
+	-> 영화는 하나 쭉 다 받고 그 다음 꺼 쭉 받는 게 나음 -> "batch"
+
+- interactive하게 process들을 처리하기에 최적의 scheduling algorithm은 round robin임
+- waiting time 측면에서 최적의 scheduling algorithm은 SJF임
+	-> but next cpu burst를 예측하기 어려움
+	-> 그래서 time quantum을 적용(즉, round robin)하는 게 더 나음
+// 결론 : forground process는 round robin을 사용하고
+	background process는 하나 끝내고 그 다음 거 해야 하니까 FCFS을 사용함
+
+- foreground process가 달려있는 queue와 background process가 달려있는 queue에 대해서는 어떻게 scheduling?
+(foreground와 background는 어떻게 scheduling 할건지를 묻는 말임)
+	-> 1) Fixed priority scheduling : 우선순위를 둬서 높은 우선순위 먼저
+	(foreground가 높으면 foreground먼저, background가 높으면 background먼저)
+	ex) round robin(foreground)의 우선순위를 더 높게주고 -> round robin이 비었으면 background를 한다
+	-> 2) time slice : 시간을 쪼개서 foregourd 얼마만큼 하고 -> 일정시간 지나면 background 얼마만큼하고,, 번갈아서
+// 43분 웃겨ㅠㅠ
+
+30pg)
+- 30pg에 그려진 그림은 multilevel queue에 대한 설명이긴 하지만
+뭐가 interactive process이고, 뭐가 bach process인지 구분하기 어려움
+
+33pg)
+- mulitilevel feedback queue -> UNIX에서 제공하는 전통적인 scheduling algorithm
+- UNIX에 real time algorithm이 적용되기 전까지는 mulitilevel feedback queue를 사용
+
+// 필기함 // 이해안됨ㅠ(46분 28초)
+time quantum = 8을 다 못 채우고 waiting 상태로 빠져나갔다?
+time quantum 8을 다 못채우고 CPU에 IO 요청을 했다는 거임
+cpu burst가 짧다는 거
+io bound process일 가능성이 높음
+
+// (1)multilevel queue VS (2)multilevel feedback queue
+(1) 어떤 process가 실행되는데 걔가 cpu bound인지 io bound인지 알수가 없음(problem)
+(2) 어떤 process를 돌려보고 time quantum을 다 채울 때마다 그 다음 time quantum으로 보냄 -> 얘는 cpu bound인거임 // 다 못채우고 나가면 걔는 io bound일 가능성이 높음 (cpu bound와 io bound는 처리하는 방식이 다르기 때문에 구분하는 거임 // cpu bound -> batch, io bound -> interactive) 
+
+36pg)
+- 지금까지 한 얘기는 processor이 1개(single processor)
+- 이제 processor을 multiple, 여러개로 확장시키면
+하나의 processor에는 ready queue에 있는 process가 여러개가 있고, 어떤 process는 놀고있고 이러면 안됨
+	-> 모든 processor가 바쁘게 동작하도록 load balancing(load sharing)을 해줘야 함 
+- 즉, multiple-processor scheduling은 load balancing을 맞추는 게 가장 중요함 
+
+38pg)
+- real time system : deadline을 만족했느냐가 중요한 system

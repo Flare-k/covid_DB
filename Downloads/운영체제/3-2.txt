@@ -1,0 +1,61 @@
+// 조진성 교수님 중간고사 1번 문제 - 컴퓨터 하드웨어의 기본적인 구조를 그림을 그리고 mp3프로세서, 아래한글 프로세서가 수행이 될 때 어떻게 context switch가 일어나고, 어떻게 프로세스의 상태가 바뀌면서 동작하는지 서술
+
+// 복습 : 29분 23까지
+
+// 오늘 수업 시작
+13pg)
+- pcb : process control block, process의 모든 정보가 담겨있음
+- running상태(Queue에 없음, cpu에 올라가 있음) -> ready상태(ready Queue에 들어감)
+- running상태 -> waiting상태(IO의 발생을 기다리는 중, event가 발생할 IO장치의 waiting Queue에 저장됨, ex: disk Queue, 키보드 Queue, 네트워크 Queue에서 기다림 )
+
+14pg)
+- ready queue, device queue는 앞의 슬라이드에서 설명함
+- job queue : 옛날 개념임. 메인프레임 시절에 프로세스를 job이라고 부름. 실행시킬 모든 job을 저장하는 큐. 요즘에 시스템에서는 job queue가 별도로 존재하지 않음.
+
+17pg)
+- 스케쥴링은 ready상태에 있는 process중에 어떤 process를 선택할지 고르는 것
+- 스케쥴러 : 스케쥴링을 하는 주체(by OS 즉, 스케쥴러는 OS의 일부임)
+	- long-term scheduler : 긴 주기로 수행 // 현재 OS에서는 존재하지 않음 // 옛날에 multiprogramming 시절에 수행해달라고 요청들어온 job이 10개라고 했을 때 근데 메모리는 5개밖에 못 올려, 즉 ready queue에는 5개밖에 못 올려. 메모리 size제한때문에. 지금 총 수행해달라고 요청해온게 10개인데 그 중에 5개만 main memory에 올릴 수 있어 -> 어떤 5개를 고르느냐가 long-term scheduler임 -> 일단 5개가 메모리에 올라가면 -> 그 중 하나만 cpu가 수행할 수 있음 -> 5개 중 어떤 거 하나를 고르느냐는 short-term scheduler임
+	- short-term scheduler : 짧은 주기로 수행 ex) ready인 프로세스를 -> running로 바꾸는 거 (앞서 했던 예시) // 다른 말로 CPU scheduler라고 함
+	- 왜 옛날에만 long-term scheduling이 있고 지금은 없을까? -> 옛날에는 virtual memory management라는 개념이 없어서 physical memory가 1GB였으면 정말 딱 1GB밖에 못 씀 -> 근데 요즘에는 physical한 메모리가 1GB라고 해도 실제로는 무한대의 메모리가 있는 것처럼 서비스를 제공함 -> 그러니까 현재는 메모리에 못 올라가는 프로세스는 없는거임. 다 메모리에는 올라감. -> 무슨 메모리에 올라감? virtual memory에 올라감 -> 이 때 virtual memory는 실제 physical한 memory일 수도 있고 아닐 수도 있음 -> 다시말해 이제는 모든 프로세서가 가상메모리든 실제메모리든 일단 메모리에 올라갈 수 있기 때문에 이제 더이상 long-term memory 개념이 필요없음
+
+20pg)
+- long-term이 있고, short-term이 있으니 이 둘의 중간정도 되는 medium-term이 있음
+- 근데 요즘은 medium-term도 쓰지 않는 개념임
+
+21pg)
+- 제일 처음에 long-term 스케쥴링을 이용해서 10개 중에 5개를 메모리로 올리고 수행을 시켰어
+- 근데 수행을 시켰더니 cpu의 성능이 조금 부족해
+- 그래서 5개를 돌아가면서 수행시키는게 조금 버벅거림
+- 그래서 5개 중 2개를 밑으로 다시 내릴수도 있겠지
+- 그럼 3개가 되면 더 빨리 수행할 수 있겠지
+- 그렇게 해서 long-term 스케쥴링에 의해 10개 중에 5개를 골라서 메모리에 올렸는데 그 중에서 몇 개를 골라서 다시 쫓아내는 걸 medium-term scheduling임
+- 근데 이제는 virtual memory management가 있어서 medium-term scheduling도 long-term scheduling과 마찬가지로 쓰이지 않는 개념임
+- 대신 short-term scheduling은 cpu에서 수행되는 거니까 아주 자주 수행됨
+
+// 이제부터는 프로세스의 생성, 종류, 프로세스간 통신에 대해서 이야기함
+=> 그 이전의 내용과는 달리(context switch같은 그 이전의 내용은 OS가 알아서 다 해주니까), 이 3가지는 이해하고 있어야지 실제로 프로그래밍 할 때, 효율적이고 성능이 우수한 프로그램을 만들 수 있음
+
+23~25pg) process ceation (프로세스의 생성)
+- 사용자가 program을 실행하게 되면 OS가 process를 만듦
+- app은 OS한테 process를 만들어달라고 요청함 = system call
+
+- fork : UNIX에서 process를 만들어달라는 system call임
+- 유닉스에서 process를 생성할 때, 자기랑 똑같은 process를 하나 더 만듦 -> 왜인지는 실제로 프로그래밍 해봐야 알 수 있대(그냥 지금은 그렇다라고 받아들이래) 
+- 유닉스는 process간에 부모자식 관계가 있지만
+windows는 process간에 부모자식 관계 없음
+
+26pg)
+- fork()라는 system call을 수행하는 순간 process가 2개가 됨(유닉스에서 process를 생성할 때 자기랑 똑같은 process를 하나 더 만드니까) -> 어떻게 해서 2개가 되냐면 -> 원래꺼(=쭉 수행되는 거) 하나는 fork()의 return value가 양수임 -> 그런데 새로 만들어지는 fork()는 return value가 0임 -> 
+
+28pg)
+- fork()는 parent process와 협력할 때 좋음
+
+// 프로세스의 종류
+- 유닉스에서 프로세스를 생성하는 system call이 fork()
+- 유닉스에서 프로세스를 종료하는 system call이 exit()
+
+33pg)
+exit(0) vs exit(1)
+- exit(0) : 내가 만든 프로그램이 할 일을 다 하고 종료할 때 0을 return함
+- exit(1) : 0이 아닌 다른 수를 return(ex 1같은 수)하면 비정상적으로 종료할 때임

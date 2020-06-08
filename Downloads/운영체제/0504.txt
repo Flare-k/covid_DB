@@ -1,0 +1,47 @@
+[ 0504운체 ]
+concurrent process
+: single cpu에서도 두 개 이상의 process(muliti * programming environment)가 구동될 수 있음
+: cpu가 1개여도 2개 이상의 process를 동시에 수행될 수 있음
+: 어떤 process가 수행이 끝나지 않아도 다른 process도 같이 수행될 수 있음
+: 공유data, 공유지역(shared data, shared resource)의 정보를 동시에 access하는 경우(race condition) 
+: 성능을 향상시키기 위함
+: local data를 access할 때는 no probelm
+: shared data에서 manupulation할 때는 OS가 관여함 -> 하나가 critical update하는 것을 종료하기 전까지는 -> 동기화 명령을 내림(공중화장실,,,ㅋㅋㅋㅋㅋlock, unlock)
+: OS에서 동기화 기능을 가지고 race condition이 발생하면 control해줌
+: lock, 세마포어, monitor, message의 동기화 방법을 사용함
+
+* 2개 이상의 process가 동시에 발생하면 떤 문제가 생길까?
+ex) 아빠(서울), 엄마(광주) 
+공동계좌 KB국민은행 잔액 700만원
+등록금 600만원 
+동시에 access
+// 그림으로 설명해줌
+
+cf) parallel process
+: multiple cpu에서 process가 병렬로 수행됨
+
+* critical section : multiple process들이 공유하는 하나의 segment(영역)
+* critical section의 mutual exclusion을 보장해야 함
+
+* solution to cs(critical section) probelm
+= 3가지 조건을 모두 만족해야!
+1) ME
+2) progress
+3) bounded waiting
+=) 위의 3가지를 모두 만족해야 critical section의 상호배제를 보장한다.
+
+* critical section(CS)의 mutual exclusion(ME)를 보장하는 방법
+1) sw solution : process가 2개 이상 -> pdf two process solution // (user) program level에서의 solution
+2) hw solution : 펌웨어에 기능 넣어서!
+3) semaphore
+4) monitors(어려운 주제 -> handout제공)
+5) message (여기서 안 다룸 분산시스템에서 배움)
+
+1) sw solution
+begin pk
+   par begin
+        p0;
+        pn;
+   par end
+end 
+// 그림설명 있음

@@ -1,0 +1,79 @@
+// 오늘 수업
+- 운영체제 전체 서비스에 대해서
+- system call을 통해서 어떻게 process와 file system이 구동되는지
+
+1pg) common system component
+- os는 하나의 system sw임
+- os가 제공하는 서비스는?
+- os는 사용자에게 편리한 환경을 제공하기 위해서 -> hw자원을 관리함
+- os에서 제공해주는 서비스 = common system component
+	1) process관리
+	2) memory관리
+	3) io(input/output)관리
+	4) secondary storage(보조기억장치)관리
+	5) file관리
+	6) networking
+	7) protection
+	8) command-interpreter system : shell, utility가 명령어를 해석하는 것
+
+2pg) operating system structure
+- common system component
+1) process management
+	- scheduler : process가 cpu에서 작업을 하도록 os가 process를 scheduling함
+	- IPC : process들 간에 communication함
+		mailbox, shared memory로 process간 동기화,,, 등등의 방법을 씀
+	- synchronization(동기화) //운체과목에서 제일 중요한 개념
+		- process는 여러개있고 자원은 제한되어 있는데,
+		  critical section(임계영역-ex.stack, heap, 공유영역)에서
+		  process간에 서로 자원을 쓰겠다고 경쟁하는 상황에서 os가 제어함
+		- os에 동기화가능을 줘서 특정 영역에 process가 동시에 몰리면
+		  하나의 process에게만 그 영역을 할당하고
+		  다른 process가 못 들어오게 lock을 딱 걸어버림(flag를 들었다고 표현함)
+		- process가 임계영역(critical section)을 수행하고 나오면서
+		  그 영역을 os가 unlock해줌(unlock = 그 임계영역이 비어있다는 뜻)
+		- 비유 : 공중화장실에 들어가면 lock을 걸고 -> 나올 때 unlock
+			lock이 걸리면 다른 사람들(process)가 밖에서 기다리고
+			unlock이 되면 그제서야 다른 사람(process)들이 들어갈 수 있음
+		- 서로 자원을 쓰려고 경쟁하는 상황(contention problem)에서
+		  os의 process관리자가 동기화를 구동시킴
+		- 동기화의 방법 : hw적방법, sw방법(sw방법에 여러가지있음)
+		- process가 multitasking을 할 수 있게 환경을 마련
+		  memory에 2개 이상의 process가 올라갈 수 있다는 거임
+		  if) process가 sequential하게 동작하면 성능↓
+		- 이때, multitasking하다가 공유영역에 process가 동시에 접근하면 안되니까
+		  os가 동기화를 통해서 교통정리 해주는 거임
+
+2) memory management
+- 어떻게 하면 memory에 많은 process들이 제대로 저장하고, 요청했을 때 바로 꺼낼 수 있는지
+  -> page단위로, segment단위로,,,등등의 방법으로 메모리할당함
+- 가상메모리 관리
+	- secondary memory(보조기억장치)를 main memory(physical memory)처럼 사용
+	- demand paging : 메모리에 한꺼번에 모든 걸 업로드하는 게 아니라
+			  당장 필요하지 않은 건 secondary storage에 저장했다가
+			  필요해지면 main memory에 loading 시켜서 cpu에서 작업함
+			  (swap in, swap out)
+- compiler가 compile하면 fork()에 의해서 process가 생성되고,
+  process는 memory에 저장도 됐다가, cpu에 scheduling도 됐다가 반복함
+- compiler가 compile하면 physical memory의 주소값이 생성되는 것이 아니라
+  가상메모리의 주소값(logical한 주소)이 생성되는 거임
+  -> 왜? : process가 100개면 main memory에 100개의 process의 주소를 다 저장할 수 없음
+- 가상메모리의 logical한 주소를 메모리관리자가 physical한 주소로 mapping시켜줌
+- 메모리관리자는 메모리 효율성을 증대하기 위해 file이나 process를 메모리에 잘 저장하거나 빼내옴
+- 메모리 용량이 작기 때문에 사용자가 불편을 느끼지 않도록 가상메모리 기법을 씀
+
+3) file system
+- file은 file과 directory로 구성됨
+- file이 hw에 저장되기 위해서는 io를 거쳐야 함
+- device drive라는 os일부가 io management 역할을 함
+
+4) I/O management
+5) hardware control
+6) protection
+
+14pg + 20pg) command-interpreter system
+- command interpreter가 system call과 어떻게 연동되어 있는지
+- system call이 어떻게 동작하는지를 unix내부 구조와 연결지어 설명해주심 (강의보조자료 참고)
+
+- os의 가장 큰 역할(2가지)
+	1) process관리 // process관리할 때의 자료구조가 어떻게 되어있는지(중요)
+	2) file관리 // file관리할 때의 자료구조가 어떻게 되어있는지(중요)

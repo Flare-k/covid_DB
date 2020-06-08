@@ -1,0 +1,122 @@
+1pg)
+- process vs program
+- program은 실행파일을 의미하고 하드디스크(file system)에 존재.
+- program을 실행 시키면 운영체제가 프로그램을 실행시키는 인스턴스를 만듦. 이때, 인스턴스가 process.(=instance of a program in execution)
+- process를 실행과 스케쥴링의 basic unit라고 하는데,
+process보다 더 작은 단위의 실행주체가 존재하는데, 그게 쓰레드임
+
+2pg)
+- process가 실행이 되려면 어떤 메모리에 올려놔야 하는데,
+그걸 process address space라고 함.
+
+- 제일 밑에 있는 있는 게 code segment(코드 세그먼트) : 기계어 명령어들이 들어감.
+	ex) hwp.exe라는 실행파일에는 코딩한 실행 명령어들이 저장되어 있음.
+	여기서 명령어 하나를 CPU가 읽어와서 실행하고, 읽어와서 실행하는 거임.
+	CPU의 resister의 program counter(PC) 현재 여기를 수행하고 있었으면, 그 다음 번지는 그 위에, 그 위에 순차적으로 수행.
+
+- 그 위에 data를 저장하는 부분이 있는데, static data라고 함.
+여러분들이 짠 프로그램이 수행될 때는 데이터의 값이 변하면서, 계산이 되면서 수행이 되겠죠,
+그 데이터들을 저장을 해야하는데, 그 데이터 중에, static data를 저장하는 공간이 data segment입니다.
+
+- 그 위에 있는 메모리 영역은 딱 고정적으로 할당되어 있는 게 아니라, 할당됐다가 반환되는 공간, 힙이라는 공간이 있음. 
+
+- 그 위에 stack이라는 공간이 있음. stack은 커졌다, 줄어들었다 하면서 사용할 수 있는 공간임.
+
+- 그러면 여러분들이 작성한 프로그램에, static data가 아니면, 다른 데이터는 dynamic data겠지.
+그러면 data라는 말을 안 쓰고 프로그래밍 할 때는 변수지, 정적변수(static valuable), 동적변수(dynamic valuable).
+static valuable은 뭐야? : static int a; -> static segment에 저장됨.
+// 또는 어떤 변수가 static segment에 속할까? -> 전역변수
+// 프로그램이 실행될 동안에는 저장공간을 항상 가지고 있는 변수
+dynamic valuable은 뭐야? : int a; -> 함수가 호출될 때 임시적으로 변수를 위한 공간이 생겨남 -> 함수가 끝나면 사라짐 -> 생겼다, 없어졌다 함. -> static data segment에 저장되는 것이 아님. -> stack에 저장됨
+
+- function call할 때 stack이 줄어들었다 늘어났다함
+- parameter을 passing하고 dynamic valuable이 stack에 저장됐다가 없어짐 -> 그래서 function call할 때마다 stack이 커짐 -> function이 다시 돌아가면(return한다는 말인듯) stack이 줄어듦
+- stack에 저장되는 것은 dynamic valuable, function call할 때 parameter, function call을 하고 나서 return address
+
+- heap이라는 공간은 dynamically allocated memory. 언제 동적으로 생길까? dynamic memory management할 떄! 프로그래밍 할 때 new라는 키워드를 이용해서 메모리를 얼만큼 잡잖아. dynamic memory management를 이용해서 메모리를 할당을 할 때 여기(dynamic allocated memory)에 있는 공간이 할당되는 것임.
+
+- heap과 stack은 프로그램을 실행하면서 동적으로 생기는 것임. 그래서 static data와 code segment는 실행file.exe에 존재.
+ex) 여러분들이 hwp.exe를 실행시키면 -> 여러분들의 os에서 hwp.exe가 hard disk에 있을테고 그걸 memory에 올려놓음 (그게 요부분과 요부분이고(9분 39초) -> static하고 code segment를 말하는 것일듯) -> 그 다음에 명령어를 실행하면서 stack과 heap이 늘어났다가 줄어듦
+
+- 자료구조 recursion : recursion을 잘못짜서 영원히 function call을 하게 되면 프로그램이 죽음 -> 왜일까? -> function call을 하면 stack이 커짐 -> 영원이 call하니까 stack의 영역보다 큰 메모리를 요구하게 됨 -> 그래서 프로그램이 죽는거임
+
+- program이 실행되면 process가 어쩐다고? ㅎ // 10분 56초
+- program은 여기까지만이 program임(목소리만 들려서 어디를 말하는지 모르겠음 ㅠㅠ) // 11분 1초
+- program이 실행되면서 process를 만듦 -> heap과 stack이 동적으로 생겼다가 없어졌다가 함
+
+3pg)
+- process의 가장 중요한 개념 중 하나인 process state(프로세스의 상태) -> 5개 -> 5개 중에 new랑 terminated는 당연한 내용임
+- process가 처음에 생겨나면 new이고, 끝나면 teminated
+- 중요한 건 running, waiting, ready 3가지임
+- 3가지의 state를 가지면서 process가 수행되는 것임
+
+4pg)
+ex) 여러분들이 hwp.exe를 실행을 시켜요 -> 그러면 이제 이 프로그램을 읽어서 process를 만드는 상태. 그 상태를 뭐라고 해? new라고 함. -> 그리고 프로그램이 종료되면 process가 가지고 있던 모든 자원들을 OS한테 반납함. address memory를 할당받았잖아. 그걸 반납을 해야하는데, 그런 상태를 terminated라고 함. (new와 terminated는 중요한 내용 아니래, ready, waiting, running을 중점으로 볼 것)
+- running : CPU에서 수행되는 상태
+- ready : 지금 수행될 준비를 갖추고 있는 것이지만 아직 수행되지는 못함 -> 왜? : 다른 애가 수행되고 있어서
+- waiting : 수행하고 있다가 file system에서 file을 하나 읽어달라고 OS가 요청 -> IO 요청을 CPU가 내림 -> 그럼 이 process는 지금 실행을 할 수 있어? NO! -> file을 읽어달라는 요청이 다 끝날 때까지는 실행이 도리 수 없음
+
+- 즉, 실행이 안 되는 상태가 2개가 있는데, ready하고 waiting인데
+	- ready : 내가 실행할 준비는 되어 있는데 다른 process실행하느라 수행이 안되는 상태
+	- waiting : 내가 어떤 event가 발생되기를 기다리고 있기 때문에 수행할 수 없음.(=IO or event wait) 그래서 수행을 시키고 싶어도 시킬 수 없음.
+	ex) 라우터(??)에서 패킷이 올 때까지 내가 더이상 수행을 할 수 없는 상황(14분 19초)
+	ex) 프로그래밍에서 cin해서 입력을 기다리고 있는 상태 -> 사용자가 입력을 하기 전까지는 process를 실행할 수 없음
+
+- process의 상태는 실행중이거나 실행중이지 않거나 두가지로 나눌 수 있는데
+	- 실행중인 상태 : running
+	- 실행중이지 않은 상태 : ready vs waiting
+	- ready에서 예를들어 입력을 받았어 -> 그럼 waiting이 됨
+	- ready상태에 있는 process를 골라서 -> 하나를 running하는 거임(scheduling)
+
+- 슬라이드에 있는 화살표를 따라가면서 설명해주심
+	- 처음에 프로그램을 실행을 시키면
+	- 이 프로그램을 수행시키기 위해서 메모리를 할당하고, disk에서 .exe파일을 읽어서, 코드세그먼트, 데이터세그먼트를 만들고, 실행시킬 준비를 완료했어, 스케쥴되기를 기다리는 중 : ready
+	- OS가 ready상태인 process중 하나를 골랐어 -> 걔를 running 상태로 만들고 수행시킴
+	- 수행이 되다가 disk에서 파일을 읽어야 해 -> 파일을 읽어달라고 OS에 요청 -> OS가 disk에 명령을 내림 -> 그 프로세스의 상태를 waiting 상태로 만듦
+	- OS는 ready상태인 다른 process중 하나를 골라서 running 상태로 만듦
+	- 다른 process를 수행하다가 -> 아까 시킨 disk IO가 다 끝났어 -> IO controller가 cpu한테 interrupt를 걺 -> interrupt handler가 수행됨 -> OS가 수행됨 -> waiting 상태였던 process를 waiting으로 바꿔줌
+	- waiting상태 중 하나 골라서 running (이 때 내가 다시 선택될 수도 있고 아닐 수도 있음)
+	- if) running하다가 나한테 할당된 time을 다 썼으면 -> timer interrupt가 발생 -> 이 때 running이었던 이 process는 waiting일까 ready일까? -> 이 프로세스는 자기는 충분히 running할 수 있는데 쫓겨난거니까 ready상태로 가는 거 -> 이따가 다시 스케쥴되면 running할 수 있는 거임
+
+5pg)
+- 지금 현재 process의 상태가 어떻게 되느냐를 리눅스에서 보는 커맨드 : ps(=process state)
+	- 실행되는 프로세스
+	- 실행되는 프로그램
+	- 제일 왼쪽 process의 ID(번호)
+	- 프로세스의 상태
+
+- sleeping : 프로세스가 실행되기를 기다리면서 이벤트가 발생하기 전까지 잠자고 있는 거 (=waiting)
+- sw : swap out (지금 수준에서 이해할 수 없다고 하심, 뒤에 내용 배운뒤에 설명해주신다고 함)
+
+- 윈도우에서 지금 실행되고 있는 프로세스를 보기 위해서는 작업관리자를 키면 됨(22분 24초)
+	- ex) 지금 교수님은 pdf를 보여주고 있지만 background에는 screen recorder프로그램이 돌아가고 있음 -> 이 두개가 동시에 돌아갈 수 있는 원리는 -> 2개의 프로그램을 OS가 번갈아서 조금씩 실행시켜주고 있기 때문 -> 즉, OS가 CPU management를 하고 있는 거임
+
+6pg)
+- pdf reader와 screen recorder 두개가 동시에 돌아갈 수 있는 원리는 -> 2개의 프로그램을 OS가 번갈아서 조금씩 실행시켜줘야함 -> 그러기 위해서는 pdf reader가 실행되는 상태를 저장을 해야 다른 거 실행시키고 돌아와서 복구할 수 있음
+- 프로세스의 모든 상태를 저장하고 있는 운영체제의 data structure를 Process Control Block이라고 함. 프로그램을 하나 실행시키면 그 프로그램에 대한 모든 프로세스 정보를 저장하고 관리함.
+	- 프로세스의 상태
+	- PC(=program counter) : 가리키고 있는 메모리주소에 대한 정보
+	- // 24분 5초 (다른 건 해석하기 쉬워서 굳이 필기 안 함)
+
+9pg)
+- process control block이라고 하는 게 결국은 process와 관련된 모든 정보를 저장
+- process가 실행중이면 process에 대한 정보의 일부가 cpu내부의 register에 저장되어 있음 
+- process가 running에서 waiting으로 상태를 바꾸는 것은 process가 더이상 실행이 안되고 나중에 다시 실행하는 거니까, 현재 상태를 저장해야함 -> cpu에 수행되는 상태(=register에 저장되는 값)을 pcb에 저장
+
+10pg)
+- p0가 수행된다는 건 CPU에 p0의 내용이 존재한다는 것 -> 그러다가 interrupt가 걸리거나 p0가 system call을 요청했다 -> p0의 상태를 저장해야 함(p0의 pcb에 저장) -> OS가 system call의 처리를 완료하면 -> 스케쥴링 -> p1수행 -> cpu의 register의 값을 p1으로 바꿈 -> 이전에 p1이 수행이 되었던 cpu의 register의 값들은 p1의 pcb에 저장되어 있으니 이거를 이용해서 다시 cpu에 올려주면 p1이 수행됨 -> 반복,, 
+
+11pg)
+- Administrative overhead (오버헤드 관리)
+	- p0를 쭉 수행하고 -> p1을 쭉 수행하는게 오버헤드가 없는 거지만
+	- p0수행했다가 -> p1수행했다가 -> 반복,, 하려면 현재상태를 저장해야 하고 나중에 다시 꺼내야 함
+	- 이런 쓸데없는 오버헤드를 안해도 되는데, 오버헤드가 발생하는 게 결국 더 좋음 -> 왜? 프로세스를 조금씩 조금씩 나눠서 번갈아 수행해줘야지 응답시간이 짧아지기 때문 -> time sharing을 쓰는 이유임, bash에서 multiprogramming으로 간 이유임 -> 그러기 위해서는 context switch를 해야함
+	- 즉, 오버헤드가 있음에도 불구하고 장점이 더 큰거야
+
+// 오늘 한 얘기중에 제일 중요한 것
+- process라는 개념이 뭔지
+- process가 ready, running, waiting이라는 상태를 번갈아가면서 cpu는 한개인데 여러개의 process들이 수행되는 것
+- cpu는 한개인데 여러개의 process들이 수행되기 위한 개념 : context switch
+// 다음시간에 칠판에 쓰면서 하는 얘기가 중간고사 1번문제임 (우리교수님 얘기는 아님,,ㅎ)
+
+	- 이 때 오버헤드를 관리하는 게 context switch임
