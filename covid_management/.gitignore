@@ -120,3 +120,6 @@ uploads
 static
 text
 *.txt
+
+#database
+/database.json

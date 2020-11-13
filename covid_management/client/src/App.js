@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import CircularProgress from "@material-ui/core/CircularProgress";
 import {withStyles} from '@material-ui/core/styles';
 
 // style variable 지정
@@ -19,15 +20,20 @@ const styles = theme => ({
     },
     table: {
         minWidth: 1080  //Table은 1080px이상
+    },
+    progress: {
+        margin: theme.spacing(2)
     }
 })
 
 class App extends Component{
     state = {
-        patients: ""
+        patients: "",
+        completed: 0
     }//환자 정보를 state 값으로 가져온다.
 
     componentDidMount(){
+        this.timer = setInterval(this.progress, 20);
         this.callApi()
             .then(res => this.setState({patients:res}))
             .catch(err => console.log(err));
@@ -37,8 +43,14 @@ class App extends Component{
         const body = await response.json();     // 불러온 json 데이터를 body에 넣는다.
         return body;    //컴포넌트가 마운트되면 리턴된다.
     }
+
+    progress = () => {
+        const {completed} = this.state;
+        this.setState({ completed : completed >= 100 ? 0 : completed + 1})
+    }
+
     render(){
-        const {classes} = this.props;
+        const {classes} = this.props;   // 위에서 정의한 styles를 가져올 수 있다.
         return (
             <Paper className={classes.root}>
                 <Table className={classes.table}>
@@ -65,10 +77,16 @@ class App extends Component{
                                     job = {patient.job}
                                 />
                             )
-                        }): ""}
+                        })
+                        : 
+                            <TableRow>
+                                <TableCell colSpan="6" align="center">
+                                    <CircularProgress className={classes.progress} variant="determinate" value={this.state.completed}/>
+                                </TableCell>
+                            </TableRow>
+                        }
                     </TableBody>
                 </Table>
-
             </Paper>
         );
     }
