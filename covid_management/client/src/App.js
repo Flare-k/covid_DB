@@ -2,6 +2,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Patient from './components/Patient';
+import PatientAdd from './components/PatientAdd';
 import Paper from '@material-ui/core/Paper';    //Component의 외부를 감싼다. div -> Paper
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -52,42 +53,45 @@ class App extends Component{
     render(){
         const {classes} = this.props;   // 위에서 정의한 styles를 가져올 수 있다.
         return (
-            <Paper className={classes.root}>
-                <Table className={classes.table}>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>번호</TableCell>
-                            <TableCell>이미지</TableCell>
-                            <TableCell>이름</TableCell>
-                            <TableCell>생년월일</TableCell>
-                            <TableCell>성별</TableCell>
-                            <TableCell>직업</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {this.state.patients ? this.state.patients.map(patient => {
-                            return(
-                                <Patient
-                                    key = {patient.id}
-                                    id = {patient.id}
-                                    image = {patient.image}
-                                    name = {patient.name}
-                                    birthday = {patient.birthday}
-                                    gender = {patient.gender}
-                                    job = {patient.job}
-                                />
-                            )
-                        })
-                        : 
+            <div>
+                <Paper className={classes.root}>
+                    <Table className={classes.table}>
+                        <TableHead>
                             <TableRow>
-                                <TableCell colSpan="6" align="center">
-                                    <CircularProgress className={classes.progress} variant="determinate" value={this.state.completed}/>
-                                </TableCell>
+                                <TableCell>번호</TableCell>
+                                <TableCell>이미지</TableCell>
+                                <TableCell>이름</TableCell>
+                                <TableCell>생년월일</TableCell>
+                                <TableCell>성별</TableCell>
+                                <TableCell>직업</TableCell>
                             </TableRow>
-                        }
-                    </TableBody>
-                </Table>
-            </Paper>
+                        </TableHead>
+                        <TableBody>
+                            {this.state.patients ? this.state.patients.map(patient => {
+                                return(
+                                    <Patient
+                                        key = {patient.id}
+                                        id = {patient.id}
+                                        image = {patient.image}
+                                        name = {patient.name}
+                                        birthday = {patient.birthday}
+                                        gender = {patient.gender}
+                                        job = {patient.job}
+                                    />
+                                )
+                            })
+                            : 
+                                <TableRow>
+                                    <TableCell colSpan="6" align="center">
+                                        <CircularProgress className={classes.progress} variant="determinate" value={this.state.completed}/>
+                                    </TableCell>
+                                </TableRow>
+                            }
+                        </TableBody>
+                    </Table>
+                </Paper>
+                <PatientAdd/>
+            </div>
         );
     }
 }
