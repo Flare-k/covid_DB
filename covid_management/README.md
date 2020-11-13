@@ -1,4 +1,4 @@
-# Server 실행
+# Server & client 실행
 ``
-npm run server
+yarn dev
 ``
