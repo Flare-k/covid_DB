@@ -28,10 +28,24 @@ const styles = theme => ({
 })
 
 class App extends Component{
-    state = {
-        patients: "",
-        completed: 0
-    }//환자 정보를 state 값으로 가져온다.
+
+    constructor(props){
+        super(props);
+        this.state = {
+            patients: "",
+            completed: 0
+        }//환자 정보를 state 값으로 가져온다.
+    }
+
+    stateRefresh = () => {
+        this.setState({
+            patients: "",
+            completed: 0
+        });
+        this.callApi()
+            .then(res => this.setState({patients:res}))
+            .catch(err => console.log(err));
+    }
 
     componentDidMount(){
         this.timer = setInterval(this.progress, 20);
@@ -90,7 +104,7 @@ class App extends Component{
                         </TableBody>
                     </Table>
                 </Paper>
-                <PatientAdd/>
+                <PatientAdd stateRefresh={this.stateRefresh}/>
             </div>
         );
     }

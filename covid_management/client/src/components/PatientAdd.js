@@ -18,10 +18,22 @@ class PatientAdd extends React.Component{
     handleFormSubmit = (e) => {
         e.preventDefault()
         this.addPatient()
-        .then((res) => {
-            console.log(res.data);
-        })     // 파일을 전송하면 콘솔창에 보이도록
-        window.location.reload(); // 페이지를 바로 새로고침하여 확진자 데이터를 받아올 수 있도록 구현
+            .then((res) => {
+                console.log(res.data);
+                this.props.stateRefresh();  //데이터를 전달하고나서 부모 컴포넌트에 있는 함수 실행.
+            })     // 파일을 전송하면 콘솔창에 보이도록
+        //window.location.reload();  페이지를 바로 새로고침하여 확진자 데이터를 받아올 수 있도록 구현
+        // SPA(Single Page Application); 전체페이지 새로고침 -> 비효율적..
+        // 부모 컴포넌트 상태변경이 적합하다. (필요 부분 새로고침)
+        // 데이터를 추가하면 State를 Refresh하고 고객 목록을 불러오는 callApi()를 Refresh 해주자.
+        this.setState({
+            file: null,    // 프로필 이미지를 파일 형태로..
+            userName: '',
+            birthday: '',
+            gender: '',
+            job: '',
+            fileName: ''
+        });
     }
 
     handleFileChange = (e) => {
