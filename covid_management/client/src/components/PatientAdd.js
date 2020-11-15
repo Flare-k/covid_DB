@@ -12,15 +12,16 @@ class PatientAdd extends React.Component{
             birthday: '',
             gender: '',
             job: '',
-            fileName: ""
+            fileName: ''
         }
     }
     handleFormSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         this.addPatient()
-            .then((res) => {
-                console.log(res.data);
-            });     // 파일을 전송하면 콘솔창에 보이도록
+        .then((res) => {
+            console.log(res.data);
+        })     // 파일을 전송하면 콘솔창에 보이도록
+        window.location.reload(); // 페이지를 바로 새로고침하여 확진자 데이터를 받아올 수 있도록 구현
     }
 
     handleFileChange = (e) => {
@@ -32,18 +33,18 @@ class PatientAdd extends React.Component{
 
     handleValueChange = (e) => {
         const nextState = {};
-        nextState[e.target.name] = e.target.value
+        nextState[e.target.name] = e.target.value;
         this.setState(nextState);
     }
 
     addPatient = () =>{
         const url = '/api/patients';
         const formData = new FormData();
-        formData.append('image', this.state.file);
-        formData.append('name', this.state.userName);
-        formData.append('birthday', this.state.birthday);
-        formData.append('gender', this.state.gender);
-        formData.append('job', this.state.job);
+        formData.append('image', this.state.file)
+        formData.append('name', this.state.userName)
+        formData.append('birthday', this.state.birthday)
+        formData.append('gender', this.state.gender)
+        formData.append('job', this.state.job)
         // 파일이 포함된 데이터를 서버로 보낼때 -> 헤더 필요
         const config = {
             headers: {
@@ -56,15 +57,15 @@ class PatientAdd extends React.Component{
 
     render() {
         return(
-            <from onSubmit={this.handleFormSubmit}>
+            <form onSubmit={this.handleFormSubmit}>
                 <h1>확진자 추가</h1>
-                병원 이미지: <input type="file" name="file" file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange}></input> <br/>
-                이름: <input type="text" name = "userName" value={this.state.userName} onChange={this.state.handleValueChange}></input> <br/>
-                생년월일: <input type="text" name = "birthday" value={this.state.birthday} onChange={this.state.handleValueChange}></input> <br/>
-                성별: <input type="text" name = "gender" value={this.state.gender} onChange={this.state.handleValueChange}></input> <br/>
-                직업: <input type="text" name = "job" value={this.state.job} onChange={this.state.handleValueChange}></input> <br/>
+                병원 이미지: <input type="file" name="file" file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange} /> <br/>
+                이름: <input type="text" name = "userName" value={this.state.userName} onChange={this.handleValueChange} /> <br/>
+                생년월일: <input type="text" name = "birthday" value={this.state.birthday} onChange={this.handleValueChange} /> <br/>
+                성별: <input type="text" name = "gender" value={this.state.gender} onChange={this.handleValueChange} /> <br/>
+                직업: <input type="text" name = "job" value={this.state.job} onChange={this.handleValueChange} /> <br/>
                 <button type="submit">추가하기</button>
-            </from>
+            </form>
         )
     }
 }

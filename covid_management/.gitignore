@@ -123,3 +123,6 @@ text
 
 #database
 /database.json
+
+#upload
+/upload
