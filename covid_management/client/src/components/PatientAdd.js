@@ -18,10 +18,10 @@ class PatientAdd extends React.Component{
     handleFormSubmit = (e) => {
         e.preventDefault()
         this.addPatient()
-            .then((res) => {
-                console.log(res.data);
-                this.props.stateRefresh();  //데이터를 전달하고나서 부모 컴포넌트에 있는 함수 실행.
-            })     // 파일을 전송하면 콘솔창에 보이도록
+        .then((res) => {
+            console.log(res.data);
+            this.props.stateRefresh();  //데이터를 전달하고나서 부모 컴포넌트에 있는 함수 실행.
+        })     // 파일을 전송하면 콘솔창에 보이도록
         //window.location.reload();  페이지를 바로 새로고침하여 확진자 데이터를 받아올 수 있도록 구현
         // SPA(Single Page Application); 전체페이지 새로고침 -> 비효율적..
         // 부모 컴포넌트 상태변경이 적합하다. (필요 부분 새로고침)

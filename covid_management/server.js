@@ -21,7 +21,7 @@ app.use('/image', express.static('./upload'));   // static을 이용해 upload �
 
 app.get('/api/patients', async (req,res) => {
     await conn.query(
-        "SELECT * FROM PATIENT",
+        "SELECT * FROM PATIENT WHERE isDeleted = 0",
         (err, rows, field) => {
             res.send(rows);
         }
@@ -29,7 +29,7 @@ app.get('/api/patients', async (req,res) => {
 });
 
 app.post('/api/patients', upload.single('image'), (req, res) => {
-    const sql = "INSERT INTO PATIENT VALUES (null, ?, ?, ?, ?, ?)";
+    const sql = "INSERT INTO PATIENT VALUES (null, ?, ?, ?, ?, ?, now(), 0)";
     const image = '/image/' + req.file.filename;    // 사용자는 image 경로에 있는 해당 파일이름으로 접근한다.
     // 즉, image라는 변수로 실제로 프로필 이미지의 바이너리 데이터를 서버에 전송 ->  그때의 파일이름도 같이 전송받는데 multer가 자동으로 겹치지 않게 설정해준다.
     const name = req.body.name;
@@ -37,6 +37,16 @@ app.post('/api/patients', upload.single('image'), (req, res) => {
     const gender = req.body.gender;
     const job = req.body.job;
     const params = [image, name, birthday, gender, job];
+    conn.query(sql, params, 
+        (err, rows, field) => {
+            res.send(rows);
+        }
+    );
+})
+
+app.delete('/api/patients/:id', (req, res) => {
+    const sql = "UPDATE PATIENT SET isDeleted = 1 WHERE id = ?";
+    const params = [req.params.id];
     conn.query(sql, params, 
         (err, rows, field) => {
             res.send(rows);
