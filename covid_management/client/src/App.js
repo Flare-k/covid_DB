@@ -25,7 +25,7 @@ const styles = theme => ({
     progress: {
         margin: theme.spacing(2)
     }
-})
+});
 
 class App extends Component{
 
