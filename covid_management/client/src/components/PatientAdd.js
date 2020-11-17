@@ -113,7 +113,7 @@ class PatientAdd extends React.Component{
                         <label htmlFor="raised-button-file">
                             <Button variant="contained" color="primary" component="span" name="file">
                                 {this.state.fileName === "" ? "이미지 선택" : this.state.fileName}
-                            </Button>
+                            </Button> <br/>
                         </label>
                         <TextField label="이름" type="text" name = "userName" value={this.state.userName} onChange={this.handleValueChange} /> <br/>
                         <TextField label="생년월일" type="text" name = "birthday" value={this.state.birthday} onChange={this.handleValueChange} /> <br/>
