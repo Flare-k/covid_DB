@@ -110,15 +110,17 @@ class App extends Component{
     constructor(props){
         super(props);
         this.state = {
-            patients: "",
-            completed: 0
+            patients: '',
+            completed: 0,
+            searchKeyword: ''
         }//환자 정보를 state 값으로 가져온다.
     }
 
     stateRefresh = () => {
         this.setState({
-            patients: "",
-            completed: 0
+            patients: '',
+            completed: 0,
+            searchKeyword: ''
         });
         this.callApi()
             .then(res => this.setState({patients:res}))
@@ -142,9 +144,30 @@ class App extends Component{
         this.setState({ completed : completed >= 100 ? 0 : completed + 1})
     }
 
+    handleValueChange = (e) => {
+        const nextState = {};
+        nextState[e.target.name] = e.target.value;
+        this.setState(nextState);
+    }
+
     render(){
+        const filteredComponents = (data) => {
+            data = data.filter((p) => {
+                return p.name.indexOf(this.state.searchKeyword) > -1;
+            });
+            return data.map((p) => {
+                return <Patient stateRefresh={this.stateRefresh} 
+                            key={p.id} 
+                            id={p.id}
+                            image={p.image} 
+                            name={p.name} 
+                            birthday={p.birthday} 
+                            gender={p.gender} 
+                            job={p.job}/>
+            });
+        }
         const {classes} = this.props;   // 위에서 정의한 styles를 가져올 수 있다.
-        const cellList = ['번호', '이미지', '이름', '생년월일', '성별', '직업', '설정'];
+        const cellList = ['번호', '이미지', '이름', '생년월일', '성별', '직업', '동선', '설정'];
         return (
             <div className={classes.root}>
                 <AppBar position="static">
@@ -152,7 +175,7 @@ class App extends Component{
                         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="open drawer">
                             <MenuIcon />
                         </IconButton>
-                        <Typography className={classes.title} variant="h6" noWrap>
+                        <Typography className={classes.title} variant="h6" noWrap href='/api/patients'>
                             확진자 관리 시스템
                         </Typography>
                         <div className={classes.grow}></div>
@@ -166,7 +189,9 @@ class App extends Component{
                                         root: classes.inputRoot,
                                         input: classes.inputInput,
                                     }}
-                                    inputProps={{ 'aria-label': 'search' }}
+                                    name="searchKeyword"
+                                    value={this.state.searchKeyword}
+                                    onChange={this.handleValueChange}
                                 />
                         </div>
                     </Toolbar>
@@ -184,20 +209,8 @@ class App extends Component{
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.state.patients ? this.state.patients.map(patient => {
-                                return(
-                                    <Patient
-                                        stateRefresh = {this.stateRefresh}
-                                        key = {patient.id}
-                                        id = {patient.id}
-                                        image = {patient.image}
-                                        name = {patient.name}
-                                        birthday = {patient.birthday}
-                                        gender = {patient.gender}
-                                        job = {patient.job}
-                                    />
-                                )
-                            })
+                            {this.state.patients ? 
+                            filteredComponents(this.state.patients)
                             : 
                                 <TableRow>
                                     <TableCell colSpan="6" align="center">

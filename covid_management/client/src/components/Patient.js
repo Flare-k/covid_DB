@@ -1,6 +1,7 @@
 import React from 'react';
-import TableRow from '@material-ui/core/TableRow';
+import PatientInfo from "./PatientInfo";
 import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
 import PatientDelete from './PatientDelete';
 
 class Patient extends React.Component{
@@ -13,8 +14,11 @@ class Patient extends React.Component{
                 <TableCell>{this.props.birthday}</TableCell>
                 <TableCell>{this.props.gender}</TableCell>
                 <TableCell>{this.props.job}</TableCell>
+                <TableCell><PatientInfo id={this.props.id} name={this.props.name}/></TableCell>
                 <TableCell><PatientDelete stateRefresh={this.props.stateRefresh} id={this.props.id}/></TableCell>
             </TableRow>
+            
+
         );
     }
 }

@@ -35,7 +35,7 @@ class PatientDelete extends React.Component {
     render() {
         return (
             <div>
-                <Button variant="contained" color="secondary" onClick={this.handleClickOpen}>삭제</Button>
+                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>삭제</Button>
                 <Dialog open={this.state.open} onClose={this.handleClose}>
                     <DialogTitle onClose={this.handleClose}>
                         삭제 경고

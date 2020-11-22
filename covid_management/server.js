@@ -28,6 +28,17 @@ app.get('/api/patients', async (req,res) => {
     );
 });
 
+app.get('/api/patients/info/:id', async (req,res) => {
+    console.log("Req id: "+req.params.id);
+    await conn.query(
+        `SELECT * FROM PATIENT WHERE isDeleted = 0 AND id = ${req.params.id}`,
+        (err, rows, field) => {
+            // console.log(rows);
+            res.send(rows);
+        }
+    );
+});
+
 app.post('/api/patients', upload.single('image'), (req, res) => {
     const sql = "INSERT INTO PATIENT VALUES (null, ?, ?, ?, ?, ?, now(), 0)";
     const image = '/image/' + req.file.filename;    // 사용자는 image 경로에 있는 해당 파일이름으로 접근한다.
