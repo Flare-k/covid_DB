@@ -45,7 +45,7 @@ const PatientInfo = (props) => {
             setLoading(true); // 로딩중
             const res = await axios.get(`/api/patients/info/${id}`);  //비동기 통신으로 접속하고자 하는 주소를 넣는다.
             setResponse(res);
-            console.log("Data: ", JSON.stringify(res));
+            // console.log("Data: ", JSON.stringify(res));
             setID(res.data[0].id);
             setName(res.data[0].name);
             
