@@ -19,12 +19,17 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import Pagination from '@material-ui/lab/Pagination';
+
 
 
 // style variable 지정
 const styles = theme => ({
     root: {
-        width:'100%'
+        width:'100%',
+        '& > *': {
+            marginTop: theme.spacing(2),
+        }
     },
     menu:{
         marginTop: 15,
@@ -112,7 +117,10 @@ class App extends Component{
         this.state = {
             patients: '',
             completed: 0,
-            searchKeyword: ''
+            searchKeyword: '',
+            posts: [],
+            currentPage: 1,
+            postsPerPage: 10
         }//환자 정보를 state 값으로 가져온다.
     }
 
@@ -136,6 +144,7 @@ class App extends Component{
     callApi = async() => {
         const response = await fetch('/api/patients');  //비동기 통신으로 접속하고자 하는 주소를 넣는다.
         const body = await response.json();     // 불러온 json 데이터를 body에 넣는다.
+        // this.setState(posts: body.data);
         return body;    //컴포넌트가 마운트되면 리턴된다.
     }
 
@@ -150,24 +159,27 @@ class App extends Component{
         this.setState(nextState);
     }
 
+
     render(){
         const filteredComponents = (data) => {
             data = data.filter((p) => {
-                return p.name.indexOf(this.state.searchKeyword) > -1;
+                return p.city.indexOf(this.state.searchKeyword) > -1;
             });
             return data.map((p) => {
                 return <Patient stateRefresh={this.stateRefresh} 
-                            key={p.id} 
-                            id={p.id}
-                            image={p.image} 
-                            name={p.name} 
-                            birthday={p.birthday} 
+                            key={p.patient_id} 
+                            patient_id={p.patient_id}
+                            country={p.country} 
                             gender={p.gender} 
-                            job={p.job}/>
+                            age={p.age} 
+                            infection_reason={p.infection_reason} 
+                            confirmed_date={p.confirmed_date.slice(0, 10)}
+                            province={p.province}
+                            city={p.city}/>
             });
         }
         const {classes} = this.props;   // 위에서 정의한 styles를 가져올 수 있다.
-        const cellList = ['번호', '이미지', '이름', '생년월일', '성별', '직업', '동선', '설정'];
+        const cellList = ['확진번호', '국적', '성별', '나이', '감염경로', '확진날짜', '거주지','동선', '설정'];
         return (
             <div className={classes.root}>
                 <AppBar position="static">
@@ -221,6 +233,8 @@ class App extends Component{
                         </TableBody>
                     </Table>
                 </Paper>
+                      <Pagination count={10} variant="outlined" color="primary" />
+
             </div>
         );
     }

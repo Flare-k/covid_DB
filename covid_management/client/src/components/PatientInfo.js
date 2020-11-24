@@ -46,8 +46,7 @@ const PatientInfo = (props) => {
             const res = await axios.get(`/api/patients/info/${id}`);  //비동기 통신으로 접속하고자 하는 주소를 넣는다.
             setResponse(res);
             // console.log("Data: ", JSON.stringify(res));
-            setID(res.data[0].id);
-            setName(res.data[0].name);
+            setID(res.data[0].patient_id);
             
         }catch(e){
             setError(e);
@@ -69,14 +68,12 @@ const PatientInfo = (props) => {
                 aria-labelledby="scroll-dialog-title"
                 aria-describedby="scroll-dialog-description"
             >
-                <DialogTitle id="scroll-dialog-title">{props.id}번 환자 동선</DialogTitle>
+                <DialogTitle id="scroll-dialog-title">{props.id}번 확진자 동선</DialogTitle>
                 <DialogContent dividers={scroll === 'paper'}>
                 <DialogContentText id="scroll-dialog-description" ref={descriptionElementRef} tabIndex={-1}>
                     <PatientRoute 
                         key={id} 
-                        id={id}
-                        name={name} 
-                        
+                        patient_id={id}
                     />
                 </DialogContentText>
                 </DialogContent>
