@@ -45,17 +45,32 @@ const PatientInfo = (props) => {
             setLoading(true); // 로딩중
             const res = await axios.get(`/api/patients/info/${id}`);  //비동기 통신으로 접속하고자 하는 주소를 넣는다.
             setResponse(res);
-            // console.log("Data: ", JSON.stringify(res));
+            // console.log("Data: " + JSON.stringify(res));
             setID(res.data[0].patient_id);
-            
+            console.log("Response: " + response);
+            console.log("ID:"+id);
+
         }catch(e){
             setError(e);
             return 0;
         }
         setLoading(false); // 로딩 끝
-        return 1;
+        return [response];
     }
-    
+    const filteredComponents = ([response]) => {
+            return [response].map((p) => {
+                return <PatientRoute
+                            key={p.patient_id} 
+                            patient_id={p.patient_id}
+                            country={p.country} 
+                            gender={p.gender} 
+                            age={p.age} 
+                            infection_reason={p.infection_reason} 
+                            confirmed_date={p.confirmed_date.slice(0, 10)}
+                            province={p.province}
+                            city={p.city}/>
+            });
+        }
     return(
         <div>
             <Button onClick={handleClickOpen('paper', props.id)}>

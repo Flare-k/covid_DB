@@ -31,9 +31,9 @@ app.get('/api/patients', async (req,res) => {
 app.get('/api/patients/info/:id', async (req,res) => {
     console.log("Req id: "+req.params.id);
     await conn.query(
-        `SELECT * FROM PATIENTS WHERE isDeleted = 0 AND patient_id = ${req.params.id}`,
+        `SELECT * FROM ROUTES WHERE patient_id = ${req.params.id}`,
         (err, rows, field) => {
-            // console.log(rows);
+            console.log(rows);
             res.send(rows);
         }
     );

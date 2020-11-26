@@ -1,13 +1,11 @@
 import React from 'react';
 
-class PatientRoute extends React.Component{
-    render(){
+const PatientRoute = (props) => {
         return(
             <p>
-                <h3> {this.props.patient_id}번 도착</h3>
+                <h3> {props.patient_id}번 도착</h3>
             </p>
         );
     }
-}
 
 export default PatientRoute;
