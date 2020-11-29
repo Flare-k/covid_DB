@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 8080;
 const upload = multer({dest:'./upload'});
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true })); // json, html, text, urlencoded 할 거 없이 다 parser할 수 있도록 설정해줘야 한다.
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // 사용자 입장에서 image라는 이름의 경로로 접근을 하는데, 실제 서버의 upload 폴더와 매핑되어 있다.
 app.use('/image', express.static('./upload'));   // static을 이용해 upload 폴더를 공유한다. image 폴더에서 upload 폴더로 접근한다.
@@ -29,11 +29,11 @@ app.get('/api/patients', async (req,res) => {
 });
 
 app.get('/api/patients/info/:id', async (req,res) => {
-    console.log("Req id: "+req.params.id);
+    //console.log("Req id: "+req.params.id);
     await conn.query(
         `SELECT * FROM ROUTES WHERE patient_id = ${req.params.id}`,
         (err, rows, field) => {
-            console.log(rows);
+            //console.log(rows);
             res.send(rows);
         }
     );

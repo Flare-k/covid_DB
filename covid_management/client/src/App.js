@@ -27,9 +27,7 @@ import Pagination from '@material-ui/lab/Pagination';
 const styles = theme => ({
     root: {
         width:'100%',
-        '& > *': {
-            marginTop: theme.spacing(2),
-        }
+        
     },
     menu:{
         marginTop: 15,

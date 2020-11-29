@@ -10,12 +10,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 const PatientInfo = (props) => {
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [response, setResponse] = useState(null);
     const [scroll, setScroll] = useState('paper');
     const [id, setID] = useState(null);
-    const [name, setName] = useState(null);
+    // const [name, setName] = useState(null);
     
     const handleClickOpen = (scrollType, id) => () => {
         setOpen(true);
@@ -39,38 +38,34 @@ const PatientInfo = (props) => {
         }
     }, [open]);
 
-    const detailPatient = async (id) => {
-        
+    const detailPatient = async (patient_id) => {
         try{
-            setLoading(true); // 로딩중
-            const res = await axios.get(`/api/patients/info/${id}`);  //비동기 통신으로 접속하고자 하는 주소를 넣는다.
-            setResponse(res);
-            // console.log("Data: " + JSON.stringify(res));
-            setID(res.data[0].patient_id);
+            const res = await fetch(`/api/patients/info/${patient_id}`);  //비동기 통신으로 접속하고자 하는 주소를 넣는다.
+            const body = await res.json();
+            setResponse(body);
             console.log("Response: " + response);
-            console.log("ID:"+id);
-
-        }catch(e){
-            setError(e);
+            setID(res.data[0].patient_id);
+        }catch(error){
+            setError(error);
             return 0;
         }
-        setLoading(false); // 로딩 끝
-        return [response];
+        return [];
     }
-    const filteredComponents = ([response]) => {
-            return [response].map((p) => {
-                return <PatientRoute
-                            key={p.patient_id} 
-                            patient_id={p.patient_id}
-                            country={p.country} 
-                            gender={p.gender} 
-                            age={p.age} 
-                            infection_reason={p.infection_reason} 
-                            confirmed_date={p.confirmed_date.slice(0, 10)}
-                            province={p.province}
-                            city={p.city}/>
-            });
-        }
+
+    const filteredComponents = (data) => {
+            return data.map((p) => 
+                            <PatientRoute
+                                key={p.patient_id} 
+                                patient_id={p.patient_id}
+                                start={p.start} 
+                                end={p.end} 
+                                type={p.type} 
+                                province={p.province}
+                                city={p.city}
+                            />  
+    )};
+
+
     return(
         <div>
             <Button onClick={handleClickOpen('paper', props.id)}>
@@ -86,10 +81,7 @@ const PatientInfo = (props) => {
                 <DialogTitle id="scroll-dialog-title">{props.id}번 확진자 동선</DialogTitle>
                 <DialogContent dividers={scroll === 'paper'}>
                 <DialogContentText id="scroll-dialog-description" ref={descriptionElementRef} tabIndex={-1}>
-                    <PatientRoute 
-                        key={id} 
-                        patient_id={id}
-                    />
+                    {response ? filteredComponents(response) : ""}
                 </DialogContentText>
                 </DialogContent>
                 <DialogActions>
