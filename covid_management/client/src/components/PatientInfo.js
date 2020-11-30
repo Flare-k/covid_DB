@@ -1,5 +1,4 @@
 import React, {useEffect, useState, useRef} from 'react';
-import axios from 'axios';
 import PatientRoute from './PatientRoute';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -13,8 +12,6 @@ const PatientInfo = (props) => {
     const [open, setOpen] = useState(false);
     const [response, setResponse] = useState(null);
     const [scroll, setScroll] = useState('paper');
-    const [id, setID] = useState(null);
-    // const [name, setName] = useState(null);
     
     const handleClickOpen = (scrollType, id) => () => {
         setOpen(true);
@@ -44,7 +41,6 @@ const PatientInfo = (props) => {
             const body = await res.json();
             setResponse(body);
             console.log("Response: " + response);
-            setID(res.data[0].patient_id);
         }catch(error){
             setError(error);
             return 0;
@@ -81,7 +77,7 @@ const PatientInfo = (props) => {
                 <DialogTitle id="scroll-dialog-title">{props.id}번 확진자 동선</DialogTitle>
                 <DialogContent dividers={scroll === 'paper'}>
                 <DialogContentText id="scroll-dialog-description" ref={descriptionElementRef} tabIndex={-1}>
-                    {response ? filteredComponents(response) : ""}
+                    {response ? filteredComponents(response) : "이동경로를 준비 중입니다."}
                 </DialogContentText>
                 </DialogContent>
                 <DialogActions>

@@ -19,8 +19,6 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import Pagination from '@material-ui/lab/Pagination';
-
 
 
 // style variable 지정
@@ -194,7 +192,7 @@ class App extends Component{
                                     <SearchIcon />
                                 </div>
                                 <InputBase
-                                    placeholder="검색..."
+                                    placeholder="행정동 검색..."
                                     classes={{
                                         root: classes.inputRoot,
                                         input: classes.inputInput,
@@ -208,6 +206,9 @@ class App extends Component{
                 </AppBar>
                 <div className={classes.menu}>
                     <PatientAdd stateRefresh={this.stateRefresh}/>
+                </div>
+                <div>
+                    
                 </div>
                 <Paper className={classes.paper}>
                     <Table className={classes.table}>
@@ -231,8 +232,6 @@ class App extends Component{
                         </TableBody>
                     </Table>
                 </Paper>
-                      <Pagination count={10} variant="outlined" color="primary" />
-
             </div>
         );
     }

@@ -17,7 +17,7 @@ class Patient extends React.Component{
                 <TableCell>{this.props.confirmed_date}</TableCell>
                 <TableCell>{this.props.province} {this.props.city}</TableCell>
                 <TableCell><PatientInfo id={this.props.patient_id}/></TableCell>
-                <TableCell><PatientDelete stateRefresh={this.props.stateRefresh} id={this.props.id}/></TableCell>
+                <TableCell><PatientDelete stateRefresh={this.props.stateRefresh} id={this.props.patient_id}/></TableCell>
             </TableRow>
             
 

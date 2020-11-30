@@ -14,18 +14,29 @@ const styles = theme => ({
         display: 'none'
     }
 });
-
+/*
+patient_id={p.patient_id}
+country={p.country} 
+gender={p.gender} 
+age={p.age} 
+infection_reason={p.infection_reason} 
+confirmed_date={p.confirmed_date.slice(0, 10)}
+province={p.province}
+city={p.city}
+*/
 
 class PatientAdd extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            file: null,    // 프로필 이미지를 파일 형태로..
-            userName: '',
-            birthday: '',
+            patient_id: '',
+            country: '',
             gender: '',
-            job: '',
-            fileName: '',
+            age: '',
+            infection_reason: '',
+            confirmed_date: '',
+            province: '',
+            city: '',
             open: false //Dialog 창이 열려있는지
         }
     }
@@ -41,21 +52,16 @@ class PatientAdd extends React.Component{
         // 부모 컴포넌트 상태변경이 적합하다. (필요 부분 새로고침)
         // 데이터를 추가하면 State를 Refresh하고 고객 목록을 불러오는 callApi()를 Refresh 해주자.
         this.setState({
-            file: null,    // 프로필 이미지를 파일 형태로..
-            userName: '',
-            birthday: '',
+            patient_id: '',
+            country: '',
             gender: '',
-            job: '',
-            fileName: '',
+            age: '',
+            infection_reason: '',
+            confirmed_date: '',
+            province: '',
+            city: '',
             open: false
         });
-    }
-
-    handleFileChange = (e) => {
-        this.setState({
-            file: e.target.files[0], //e.target = 이벤트가 발생한 인풋값
-            fileName: e.target.value
-        })
     }
 
     handleValueChange = (e) => {
@@ -67,15 +73,18 @@ class PatientAdd extends React.Component{
     addPatient = () =>{
         const url = '/api/patients';
         const formData = new FormData();
-        formData.append('image', this.state.file)
-        formData.append('name', this.state.userName)
-        formData.append('birthday', this.state.birthday)
+        formData.append('patient_id', this.state.patient_id)
+        formData.append('country', this.state.country)
         formData.append('gender', this.state.gender)
-        formData.append('job', this.state.job)
+        formData.append('age', this.state.age)
+        formData.append('infection_reason', this.state.infection_reason)
+        formData.append('confirmed_date', this.state.confirmed_date)
+        formData.append('province', this.state.province)
+        formData.append('city', this.state.city)
         // 파일이 포함된 데이터를 서버로 보낼때 -> 헤더 필요
         const config = {
             headers: {
-                'content-type': 'multipart/form-data'   // multipart/form-data는 데이터에 파일이 있을 경우 설정 해준다. 위에서 image 때문. 
+                'content-type': 'multipart/form-data'   // multipart/form-data는 데이터에 파일이 있을 경우 설정 해준다.
             }
         }
 
@@ -89,18 +98,19 @@ class PatientAdd extends React.Component{
     }
     handleClose = () => {
         this.setState({
-            file: null,    // 프로필 이미지를 파일 형태로..
-            userName: '',
-            birthday: '',
+            patient_id: '',
+            country: '',
             gender: '',
-            job: '',
-            fileName: '',
+            age: '',
+            infection_reason: '',
+            confirmed_date: '',
+            province: '',
+            city: '',
             open: false
         });
     }
 
     render() {
-        const { classes } = this.props;
         return(
             <div>
                 <Button variant="contained" color="primary" onClick={this.handleClickOpen}>
@@ -109,16 +119,14 @@ class PatientAdd extends React.Component{
                 <Dialog open={this.state.open} onClose={this.handleClose}>
                     <DialogTitle>확진자 추가</DialogTitle>
                     <DialogContent>
-                        <input className={classes.hidden} accept="image/*" id="raised-button-file" type="file" file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange} /> <br/>
-                        <label htmlFor="raised-button-file">
-                            <Button variant="contained" color="primary" component="span" name="file">
-                                {this.state.fileName === "" ? "이미지 선택" : this.state.fileName}
-                            </Button> <br/>
-                        </label>
-                        <TextField label="이름" type="text" name = "userName" value={this.state.userName} onChange={this.handleValueChange} /> <br/>
-                        <TextField label="생년월일" type="text" name = "birthday" value={this.state.birthday} onChange={this.handleValueChange} /> <br/>
+                        <TextField label="확진번호" type="text" name = "patient_id" value={this.state.patient_id} onChange={this.handleValueChange} /> <br/>
+                        <TextField label="국적" type="text" name = "country" value={this.state.country} onChange={this.handleValueChange} /> <br/>
                         <TextField label="성별" type="text" name = "gender" value={this.state.gender} onChange={this.handleValueChange} /> <br/>
-                        <TextField label="직업" type="text" name = "job" value={this.state.job} onChange={this.handleValueChange} /> <br/>
+                        <TextField label="나이" type="text" name = "age" value={this.state.age} onChange={this.handleValueChange} /> <br/>
+                        <TextField label="감염경로" type="text" name = "infection_reason" value={this.state.infection_reason} onChange={this.handleValueChange} /> <br/>
+                        <TextField label="확진날짜 (YYYY-MM-DD)" type="text" name = "confirmed_date" value={this.state.confirmed_date} onChange={this.handleValueChange} /> <br/>
+                        <TextField label="도시명" type="text" name = "province" value={this.state.province} onChange={this.handleValueChange} /> <br/>
+                        <TextField label="행정동" type="text" name = "city" value={this.state.city} onChange={this.handleValueChange} /> <br/>
                     </DialogContent>
                     <DialogActions>
                         <Button variant="contained" color="primary" onClick={this.handleFormSubmit}>추가</Button>
