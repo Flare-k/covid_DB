@@ -19,6 +19,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // 사용자 입장에서 image라는 이름의 경로로 접근을 하는데, 실제 서버의 upload 폴더와 매핑되어 있다.
 app.use('/image', express.static('./upload'));   // static을 이용해 upload 폴더를 공유한다. image 폴더에서 upload 폴더로 접근한다.
 
+
+// 확진자 테이블
 app.get('/api/patients', async (req,res) => {
     await conn.query(
         "SELECT * FROM PATIENTS WHERE isDeleted = 0",
@@ -28,6 +30,7 @@ app.get('/api/patients', async (req,res) => {
     );
 });
 
+// 특정 확진자 동선
 app.get('/api/patients/info/:id', async (req,res) => {
     //console.log("Req id: "+req.params.id);
     await conn.query(
@@ -39,6 +42,7 @@ app.get('/api/patients/info/:id', async (req,res) => {
     );
 });
 
+// 확진자 추가
 app.post('/api/patients', upload.single('image'), (req, res) => {
     const sql = "INSERT INTO PATIENTS VALUES (?, ?, ?, ?, ?, ?, ?, ?, now(), 0)";
     // const image = '/image/' + req.file.filename;    // 사용자는 image 경로에 있는 해당 파일이름으로 접근한다.
@@ -60,6 +64,7 @@ app.post('/api/patients', upload.single('image'), (req, res) => {
     );
 })
 
+// 확진자 삭제
 app.delete('/api/patients/:id', (req, res) => {
     const sql = "UPDATE PATIENTS SET isDeleted = 1 WHERE patient_id = ?";
     const params = [req.params.id];
