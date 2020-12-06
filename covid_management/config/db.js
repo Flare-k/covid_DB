@@ -10,7 +10,8 @@ const mysqlConnection = {
             user: process.env.MYSQL_USER,
             password: process.env.MYSQL_PWD,
             port: process.env.MYSQL_PORT,
-            database: process.env.MYSQL_DB
+            database: process.env.MYSQL_DB,
+            multipleStatements : true   // 다중 쿼리 OK
         });
     },
     connect: function(conn){
